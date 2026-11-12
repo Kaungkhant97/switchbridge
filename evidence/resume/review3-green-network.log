@@ -1,0 +1,10 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.17s
+     Running tests/network.rs (target/debug/deps/network-13e2ecfaeb4b09c2)
+
+running 3 tests
+test original_protocol_error_survives_failed_partial_output_cleanup ... ok
+test malformed_tcp_stream_fails_and_removes_partial_output ... ok
+test cli_tcp_round_trip_preserves_h264_and_existing_output_is_protected ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.43s

@@ -1,0 +1,6 @@
+switchbridge-macos-universal.tar.gz: OK
+switchbridge: OK
+switchbridge: Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit executable x86_64] [arm64:Mach-O 64-bit executable arm64]
+switchbridge (for architecture x86_64):	Mach-O 64-bit executable x86_64
+switchbridge (for architecture arm64):	Mach-O 64-bit executable arm64
+Packaged loopback SHA256: e720418b2bdb78878f2c931b09fee9aaf48e0c95bafe3dc0e78fdf4c3461a3db

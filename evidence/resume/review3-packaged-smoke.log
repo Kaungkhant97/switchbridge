@@ -1,0 +1,6 @@
+switchbridge-macos-universal.tar.gz: OK
+switchbridge: OK
+Extracted mode: 0o755
+x86_64 arm64
+Packaged loopback SHA256: 1ca4870e8241ced77b6f629c5d111f62431891acb404c61035ec9e10ef475b76
+PASS: refreshed extracted universal package, archive/binary checksums, executable mode and native ARM sender/receiver smoke.

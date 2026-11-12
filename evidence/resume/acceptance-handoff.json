@@ -1,0 +1,29 @@
+{
+  "status": "reviewed drafts/templates; no ticket mutation or physical observation",
+  "documents": [
+    {
+      "owner_worktree": "plan-lea7",
+      "path": "evidence/resume/lea7-closeout-draft.md",
+      "sha256": "4ee98bfa3eb515297425427fcf237c7cbf5092ed89c0c556f36149ce50a60dfe"
+    },
+    {
+      "owner_worktree": "plan-lea9",
+      "path": "evidence/resume/lea9-closeout-draft.md",
+      "sha256": "a304704d31dd94537744b19dee479b40b74c3f8b42555afc1567a9170f9ee7e4"
+    },
+    {
+      "owner_worktree": "plan-lea8",
+      "path": "docs/usb-trial-record-template.md",
+      "sha256": "07e8ea333511ab9f007f91cb7f95b533d3cc386b4c713ab8118891dc6bebd5e2"
+    },
+    {
+      "owner_worktree": "resume-cicd",
+      "path": "docs/projector-trial-record-template.md",
+      "sha256": "00cb8edd66d52b508a5a9e2292772a654bc01f9760209388aad658ecc5370061"
+    }
+  ],
+  "supersedes": {
+    "commit": "9113cd17ca892f9401a90f2f2fcc5bb4a96b4738",
+    "reason": "Independent QA required private projector evidence staging and explicit privacy-reviewed handoff; correction re-reviewed PASS."
+  }
+}

@@ -1,0 +1,28 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running unittests src/lib.rs (target/debug/deps/switchbridge-f83fff01a7c88360)
+
+running 21 tests
+test usb::tests::detects_current_and_legacy_usb_profiler_types ... ok
+test usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence ... ok
+test usb::tests::diff_redacts_private_values_known_only_to_before_inventory ... ok
+test usb::tests::fails_closed_for_malformed_sensitive_fields ... ok
+test usb::tests::diff_redacts_embedded_values_known_only_to_after_inventory ... ok
+test usb::tests::identical_inventory_reports_no_changes ... ok
+test usb::tests::diff_redacts_private_values_known_only_to_after_inventory ... ok
+test usb::tests::diff_preserves_changed_device_context_and_redacts_both_inputs ... ok
+test usb::tests::diff_redacts_embedded_values_known_only_to_before_inventory ... ok
+test usb::tests::known_private_labels_still_fail_closed_without_single_line_values ... ok
+test usb::tests::ordinary_serial_device_headers_are_not_private_fields ... ok
+test usb::tests::long_private_values_are_redacted_inside_device_names_and_values ... ok
+test usb::tests::redacts_longest_private_values_first ... ok
+test usb::tests::redacts_serial_values_everywhere_while_preserving_device_identifiers ... ok
+test usb::tests::rejects_missing_and_extra_command_arguments ... ok
+test usb::tests::rejects_sensitive_continuations_even_after_nonempty_first_line ... ok
+test usb::tests::retains_inventory_without_private_identifiers ... ok
+test usb::tests::short_private_values_do_not_modify_inserted_redaction_markers ... ok
+test usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys ... ok
+test usb::tests::writes_redacted_inventory_and_refuses_to_replace_existing_evidence ... ok
+test usb::tests::rejects_empty_invalid_utf8_and_oversized_inventory_inputs ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s

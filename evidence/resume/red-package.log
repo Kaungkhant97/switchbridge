@@ -1,0 +1,23 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `release` profile [optimized] target(s) in 0.84s
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `release` profile [optimized] target(s) in 1.16s
+error: /Applications/Xcode 26.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo: unknown architecture specification flag: /var/folders/yt/gjfvbl0d6575fnmqdx4g_yjh0000gn/T//switchbridge-package.eY4Ium/switchbridge in specifying -verify_arch operation
+/Applications/Xcode 26.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo: known architecture flags are: any little big ppc64 x86_64 x86_64h arm64 ppc970-64 arm64_32 arm64e ppc i386 m68k hppa sparc m88k i860 veo arm ppc601 ppc603 ppc603e ppc603ev ppc604 ppc604e ppc750 ppc7400 ppc7450 ppc970 i486 i486SX pentium i586 pentpro i686 pentIIm3 pentIIm5 pentium4 m68030 m68040 hppa7100LC veo1 veo2 veo3 veo4 armv4t armv5 xscale armv6 armv6m armv7 armv7f armv7s armv7k armv7m armv7em armv8m.main armv8m.base armv8.1m.main arm64v8
+usage: lipo <input_file> <command> [<options> ...]
+  command is one of:
+    -archs
+    -create
+    -detailed_info
+    -extract <arch_type> [-extract <arch_type> ...]
+    -extract_family <arch_type> [-extract_family <arch_type> ...]
+    -info
+    -remove <arch_type> [-remove <arch_type> ...]
+    -replace <arch_type> <file_name> [-replace <arch_type> <file_name> ...]
+    -thin <arch_type>
+    -verify_arch <arch_type> ...
+  options are one or more of:
+    -arch <arch_type> <input_file>
+    -hideARM64
+    -output <output_file>
+    -segalign <arch_type> <alignment>

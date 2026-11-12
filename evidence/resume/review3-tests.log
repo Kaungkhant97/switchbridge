@@ -1,0 +1,89 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running unittests src/lib.rs (target/debug/deps/switchbridge-f83fff01a7c88360)
+
+running 25 tests
+test usb::tests::detects_current_and_legacy_usb_profiler_types ... ok
+test usb::tests::colon_bearing_private_values_known_only_after_are_redacted_in_diff ... ok
+test usb::tests::diff_redacts_embedded_values_known_only_to_before_inventory ... ok
+test usb::tests::colon_bearing_private_values_known_only_before_are_redacted_in_diff ... ok
+test usb::tests::diff_redacts_private_values_known_only_to_before_inventory ... ok
+test usb::tests::diff_redacts_private_values_known_only_to_after_inventory ... ok
+test usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence ... ok
+test usb::tests::diff_preserves_changed_device_context_and_redacts_both_inputs ... ok
+test usb::tests::diff_redacts_embedded_values_known_only_to_after_inventory ... ok
+test usb::tests::fails_closed_for_malformed_sensitive_fields ... ok
+test usb::tests::identical_inventory_reports_no_changes ... ok
+test usb::tests::known_private_labels_still_fail_closed_without_single_line_values ... ok
+test usb::tests::ordinary_serial_device_headers_are_not_private_fields ... ok
+test usb::tests::long_private_values_are_redacted_inside_device_names_and_values ... ok
+test usb::tests::redacts_longest_private_values_first ... ok
+test usb::tests::private_label_variants_redact_values_and_fail_closed ... ok
+test usb::tests::redacts_serial_values_everywhere_while_preserving_device_identifiers ... ok
+test usb::tests::rejects_sensitive_continuations_even_after_nonempty_first_line ... ok
+test usb::tests::rejects_missing_and_extra_command_arguments ... ok
+test usb::tests::retains_inventory_without_private_identifiers ... ok
+test usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys ... ok
+test usb::tests::short_private_values_do_not_modify_inserted_redaction_markers ... ok
+test usb::tests::colon_bearing_private_values_are_redacted_in_snapshot_headings ... ok
+test usb::tests::writes_redacted_inventory_and_refuses_to_replace_existing_evidence ... ok
+test usb::tests::rejects_empty_invalid_utf8_and_oversized_inventory_inputs ... ok
+
+test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src/main.rs (target/debug/deps/switchbridge-43bb9c651184c9ab)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-f1186d0580e0e297)
+
+running 2 tests
+test help_describes_synthetic_transport_and_chunk_timing ... ok
+test cli_rejects_invalid_commands_and_non_loopback_endpoints ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+     Running tests/framing.rs (target/debug/deps/framing-4e753fb8500ae296)
+
+running 7 tests
+test every_truncated_prefix_is_rejected ... ok
+test invalid_payload_sizes_are_rejected_before_reading_payload ... ok
+test malformed_magic_version_kind_and_flags_are_rejected ... ok
+test reads_wire_fixture_and_clean_boundary_eof ... ok
+test writes_independently_specified_wire_bytes ... ok
+test io_errors_are_propagated ... ok
+test write_limits_and_maximum_round_trip_are_enforced ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/network.rs (target/debug/deps/network-13e2ecfaeb4b09c2)
+
+running 3 tests
+test cli_tcp_round_trip_preserves_h264_and_existing_output_is_protected ... ok
+test malformed_tcp_stream_fails_and_removes_partial_output ... ok
+test original_protocol_error_survives_failed_partial_output_cleanup ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/transport.rs (target/debug/deps/transport-857b6ceec8efcfda)
+
+running 6 tests
+test only_numeric_loopback_endpoints_are_allowed ... ok
+test sender_rejects_empty_short_or_non_annex_b_input ... ok
+test receiver_rejects_non_annex_b_first_packet ... ok
+test receiver_rejects_missing_or_out_of_order_packets ... ok
+test three_byte_annex_b_start_code_is_accepted ... ok
+test transport_round_trip_preserves_annex_b_across_chunk_boundaries ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/usb_cli.rs (target/debug/deps/usb_cli-f2f5c5f0e85681eb)
+
+running 3 tests
+test usb_snapshot_cli_reaches_usb_argument_validation ... ok
+test help_exposes_usb_commands_alongside_transport ... ok
+test usb_diff_cli_reads_paths_and_redacts_private_identifiers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s

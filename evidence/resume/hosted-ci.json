@@ -1,0 +1,509 @@
+{
+  "source_sha": "ce8aeac1eab18cd54c494e7b8d8445da061a7e66",
+  "run": {
+    "conclusion": "success",
+    "databaseId": 43141901934,
+    "headSha": "ce8aeac1eab18cd54c494e7b8d8445da061a7e66",
+    "jobs": [
+      {
+        "completedAt": "2026-11-12T02:31:02Z",
+        "conclusion": "success",
+        "databaseId": 130930614886,
+        "name": "Check (macos-15)",
+        "startedAt": "2026-11-12T02:30:37Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-12T02:30:38Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-12T02:30:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:41Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-11-12T02:30:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:49Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust",
+            "number": 3,
+            "startedAt": "2026-11-12T02:30:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:49Z",
+            "conclusion": "success",
+            "name": "Formatting",
+            "number": 4,
+            "startedAt": "2026-11-12T02:30:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:57Z",
+            "conclusion": "success",
+            "name": "Tests",
+            "number": 5,
+            "startedAt": "2026-11-12T02:30:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:59Z",
+            "conclusion": "success",
+            "name": "Clippy",
+            "number": 6,
+            "startedAt": "2026-11-12T02:30:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:59Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 12,
+            "startedAt": "2026-11-12T02:30:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:00Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-11-12T02:30:59Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/job/130930614886"
+      },
+      {
+        "completedAt": "2026-11-12T02:31:12Z",
+        "conclusion": "success",
+        "databaseId": 130930614925,
+        "name": "Check (macos-15-intel)",
+        "startedAt": "2026-11-12T02:30:38Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-12T02:30:41Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-12T02:30:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:44Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-11-12T02:30:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:58Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust",
+            "number": 3,
+            "startedAt": "2026-11-12T02:30:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:30:58Z",
+            "conclusion": "success",
+            "name": "Formatting",
+            "number": 4,
+            "startedAt": "2026-11-12T02:30:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:08Z",
+            "conclusion": "success",
+            "name": "Tests",
+            "number": 5,
+            "startedAt": "2026-11-12T02:30:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:09Z",
+            "conclusion": "success",
+            "name": "Clippy",
+            "number": 6,
+            "startedAt": "2026-11-12T02:31:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:09Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 12,
+            "startedAt": "2026-11-12T02:31:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:09Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-11-12T02:31:09Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/job/130930614925"
+      },
+      {
+        "completedAt": "2026-11-12T02:31:50Z",
+        "conclusion": "success",
+        "databaseId": 130930849696,
+        "name": "Universal executable",
+        "startedAt": "2026-11-12T02:31:15Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-12T02:31:20Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-12T02:31:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:24Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-11-12T02:31:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:36Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust and both targets",
+            "number": 3,
+            "startedAt": "2026-11-12T02:31:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:44Z",
+            "conclusion": "success",
+            "name": "Build universal archive",
+            "number": 4,
+            "startedAt": "2026-11-12T02:31:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:44Z",
+            "conclusion": "success",
+            "name": "Verify extracted archive",
+            "number": 5,
+            "startedAt": "2026-11-12T02:31:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:46Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "number": 6,
+            "startedAt": "2026-11-12T02:31:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:47Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 12,
+            "startedAt": "2026-11-12T02:31:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:47Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-11-12T02:31:47Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/job/130930849696"
+      },
+      {
+        "completedAt": "2026-11-12T02:32:14Z",
+        "conclusion": "success",
+        "databaseId": 130931086800,
+        "name": "Packaged smoke (macos-15-intel)",
+        "startedAt": "2026-11-12T02:31:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-12T02:31:59Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-12T02:31:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:32:04Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-11-12T02:31:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:32:06Z",
+            "conclusion": "success",
+            "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+            "number": 3,
+            "startedAt": "2026-11-12T02:32:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:32:10Z",
+            "conclusion": "success",
+            "name": "Verify and execute packaged binary natively",
+            "number": 4,
+            "startedAt": "2026-11-12T02:32:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:32:12Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 8,
+            "startedAt": "2026-11-12T02:32:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:32:12Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 9,
+            "startedAt": "2026-11-12T02:32:12Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/job/130931086800"
+      },
+      {
+        "completedAt": "2026-11-12T02:31:59Z",
+        "conclusion": "success",
+        "databaseId": 130931086823,
+        "name": "Packaged smoke (macos-15)",
+        "startedAt": "2026-11-12T02:31:51Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-12T02:31:53Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-12T02:31:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:55Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 2,
+            "startedAt": "2026-11-12T02:31:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:56Z",
+            "conclusion": "success",
+            "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+            "number": 3,
+            "startedAt": "2026-11-12T02:31:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:57Z",
+            "conclusion": "success",
+            "name": "Verify and execute packaged binary natively",
+            "number": 4,
+            "startedAt": "2026-11-12T02:31:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:57Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "number": 8,
+            "startedAt": "2026-11-12T02:31:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-12T02:31:57Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 9,
+            "startedAt": "2026-11-12T02:31:57Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/job/130931086823"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934"
+  },
+  "artifact": {
+    "id": 13909373980,
+    "node_id": "MDg6QXJ0aWZhY3QxMzkwOTM3Mzk4MA==",
+    "name": "switchbridge-macos-universal-ce8aeac1eab18cd54c494e7b8d8445da061a7e66",
+    "size_in_bytes": 482261,
+    "url": "https://api.github.com/repos/Kaungkhant97/switchbridge/actions/artifacts/13909373980",
+    "archive_download_url": "https://api.github.com/repos/Kaungkhant97/switchbridge/actions/artifacts/13909373980/zip",
+    "expired": false,
+    "digest": "sha256:dd2619f27c52750f6c9f62e97b40c42d556739d9aa44c276d3316c3b17e442e5",
+    "created_at": "2026-11-12T02:31:46Z",
+    "updated_at": "2026-11-12T02:31:46Z",
+    "expires_at": "2026-11-26T02:31:45Z",
+    "workflow_run": {
+      "id": 43141901934,
+      "repository_id": 1449419980,
+      "head_repository_id": 1449419980,
+      "head_branch": "feat/resume-integration",
+      "head_sha": "ce8aeac1eab18cd54c494e7b8d8445da061a7e66"
+    }
+  },
+  "hashes": {
+    "artifact_zip": "dd2619f27c52750f6c9f62e97b40c42d556739d9aa44c276d3316c3b17e442e5",
+    "archive_tar_gz": "cae0c6daca0e827bccf6f6f4082f3fb515e101f348a026b70f73f341b3ed1c51",
+    "executable": "d9bfbae8a694c1c1371f2e1eb2faedbdbc1246b0d058b2aed14a763380b4d94c"
+  },
+  "local_validation": [
+    {
+      "command": [
+        "uname",
+        "-m"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": "arm64\n"
+    },
+    {
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "switchbridge-macos-universal.tar.gz.sha256"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/artifact",
+      "exit": 0,
+      "output": "switchbridge-macos-universal.tar.gz: OK\n"
+    },
+    {
+      "command": [
+        "tar",
+        "-xzf",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/artifact/switchbridge-macos-universal.tar.gz",
+        "-C",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "SHA256SUMS"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted",
+      "exit": 0,
+      "output": "switchbridge: OK\n"
+    },
+    {
+      "command": [
+        "stat",
+        "-f",
+        "%Lp",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted/switchbridge"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": "755\n"
+    },
+    {
+      "command": [
+        "lipo",
+        "-info",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted/switchbridge"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": "Architectures in the fat file: /Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted/switchbridge are: x86_64 arm64 \n"
+    },
+    {
+      "command": [
+        "lipo",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted/switchbridge",
+        "-verify_arch",
+        "arm64",
+        "x86_64"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/smoke-packaged-macos.py",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/extracted/switchbridge"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": "Packaged loopback SHA256: 60a6fd49ac08f5dc8c9e87d566881dc1c899b2fffbc83fdd05dedf1def6e2118\n"
+    },
+    {
+      "command": [
+        "python3",
+        "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa/.evidence/ci/verify-synthetic.py"
+      ],
+      "cwd": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-ci-qa",
+      "exit": 0,
+      "output": "synthetic.h264 SHA256 487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2\nreceived.h264  SHA256 487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2\nTransported 85967 bytes via extracted universal executable\ncodec_name=h264\nwidth=160\nheight=90\nnb_read_frames=60\nPASS: synthetic 60-frame H.264 decoded after byte-identical loopback. No console or projector observation.\n"
+    }
+  ],
+  "zip_digest_and_contents_verified": true,
+  "local_runtime_architecture": "arm64",
+  "hardware_gates": "pending; no physical console, projector, USB live capture, or three reconnects observed",
+  "command_exits": {
+    "gh run watch (t1r)": 0,
+    "gh run download (t1s)": 0,
+    "gh run view --log (t1t)": 0,
+    "initial validation launch (t1v)": 2,
+    "corrected validation (t1w)": 0,
+    "gh api artifact zip (t1x)": 0,
+    "gh run view --json": 0,
+    "gh api artifacts": 0,
+    "zip digest/content assertions": 0
+  },
+  "validation_launch_note": "Initial t1v invoked validate.py before file creation, exit 2; no artifact execution occurred. Corrected t1w passed all checks.",
+  "evidence_paths": [
+    ".evidence/ci/run.log",
+    ".evidence/ci/run.json",
+    ".evidence/ci/artifacts.json",
+    ".evidence/ci/validation.json",
+    ".evidence/ci/validation.log",
+    ".evidence/ci/verify-synthetic.py"
+  ],
+  "runner_architecture_evidence": {
+    "Check (macos-15)": "run.log:17 macos-15-arm64; :130 native 1.96.0-aarch64-apple-darwin",
+    "Check (macos-15-intel)": "run.log:285 macos-15; :398 native 1.96.0-x86_64-apple-darwin",
+    "Universal executable": "run.log:554 macos-15-arm64; :668 aarch64 host toolchain",
+    "Packaged smoke (macos-15-intel)": "run.log:771 macos-15 image on macos-15-intel runner; :914-916 checksum OK and native loopback. Architecture inferred from runner/image and sibling Intel native toolchain; no uname output in workflow.",
+    "Packaged smoke (macos-15)": "run.log:948 macos-15-arm64; :1091-1093 checksum OK and loopback"
+  }
+}

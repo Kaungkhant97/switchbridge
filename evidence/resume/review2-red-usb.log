@@ -1,0 +1,51 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s
+     Running unittests src/lib.rs (target/debug/deps/switchbridge-f83fff01a7c88360)
+
+running 16 tests
+test usb::tests::detects_current_and_legacy_usb_profiler_types ... ok
+test usb::tests::identical_inventory_reports_no_changes ... ok
+test usb::tests::fails_closed_for_malformed_sensitive_fields ... ok
+test usb::tests::redacts_longest_private_values_first ... ok
+test usb::tests::diff_preserves_changed_device_context_and_redacts_both_inputs ... ok
+test usb::tests::known_private_labels_still_fail_closed_without_single_line_values ... ok
+test usb::tests::redacts_serial_values_everywhere_while_preserving_device_identifiers ... ok
+test usb::tests::rejects_missing_and_extra_command_arguments ... ok
+test usb::tests::rejects_sensitive_continuations_even_after_nonempty_first_line ... ok
+test usb::tests::retains_inventory_without_private_identifiers ... ok
+test usb::tests::short_private_values_do_not_modify_inserted_redaction_markers ... ok
+test usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence ... FAILED
+test usb::tests::ordinary_serial_device_headers_are_not_private_fields ... FAILED
+test usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys ... FAILED
+test usb::tests::writes_redacted_inventory_and_refuses_to_replace_existing_evidence ... ok
+test usb::tests::rejects_empty_invalid_utf8_and_oversized_inventory_inputs ... ok
+
+failures:
+
+---- usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence stdout ----
+
+thread 'usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence' (3545789) panicked at src/usb.rs:369:9:
+assertion `left == right` failed
+  left: "Serial Number: [REDACTED]\nDevice UUID: [REDACTED]\nRelated: [REDACTED] ([REDACTED]) [REDACTED]1 é[REDACTED] [REDACTED]é _[REDACTED] [REDACTED]-B\nVendor ID: [REDACTED]\nProduct ID: [REDACTED]\n"
+ right: "Serial Number: [REDACTED]\nDevice UUID: [REDACTED]\nRelated: [REDACTED] ([REDACTED]) A1 éA Aé _A A-B\nVendor ID: A\nProduct ID: AB-CD\n"
+
+---- usb::tests::ordinary_serial_device_headers_are_not_private_fields stdout ----
+
+thread 'usb::tests::ordinary_serial_device_headers_are_not_private_fields' (3545795) panicked at src/usb.rs:327:42:
+called `Result::unwrap()` on an `Err` value: "USB inventory contains an empty or multiline private field"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys stdout ----
+
+thread 'usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys' (3545803) panicked at src/usb.rs:356:35:
+called `Result::unwrap()` on an `Err` value: "USB inventory contains an empty or multiline private field"
+
+
+failures:
+    usb::tests::complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence
+    usb::tests::ordinary_serial_device_headers_are_not_private_fields
+    usb::tests::short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys
+
+test result: FAILED. 13 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `--lib`

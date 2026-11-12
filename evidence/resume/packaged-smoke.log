@@ -1,0 +1,13 @@
+switchbridge-macos-universal.tar.gz: OK
+switchbridge: OK
+x86_64 arm64
+switchbridge send 127.0.0.1:PORT INPUT.h264
+switchbridge receive 127.0.0.1:PORT OUTPUT.h264
+switchbridge usb-snapshot PATH
+switchbridge usb-diff BEFORE AFTER
+
+Prerecorded H.264 Annex B transport over loopback only.
+Chunk timestamps are not frame timing. Switch 2 video capture is UNVERIFIED.
+Receive accepts one connection; OUTPUT must not already exist.
+Packaged loopback SHA256: c9201c2ffddeafe8e9bd6518bc630c0f0320aba827eb8e0c48b8b0d371dc73d3
+PASS: extracted universal archive, both checksums, executable mode, native ARM sender/receiver byte smoke.

@@ -1,0 +1,89 @@
+{
+  "captured_at_utc": "2026-11-12T01:51:05.496934+00:00",
+  "source_snapshot_commit": "d927173a9c76a381e2141b5ab6285f663653632c",
+  "branch": "feat/resume-integration",
+  "provenance": "Source bytes compiled/tested in release-qa.log are frozen in this commit; capture verifies each selected file against its committed Git blob. This manifest is committed separately and excludes itself to avoid circular hashes.",
+  "environment": {
+    "macos": "26.5.1",
+    "macos_build": "25F80",
+    "architecture": "arm64",
+    "mac_model": "Mac16,1",
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+    "cargo": "cargo 1.96.0 (30a34c682 2026-05-25)",
+    "ffmpeg": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 8.1.2 Copyright (c) 2007-2026 the FFmpeg developers",
+    "lipo_path": "/Applications/Xcode 26.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo",
+    "herdr_core": "hc 0.1.20"
+  },
+  "sources_sha256": {
+    ".github/workflows/macos.yml": "d0794f9b205f1a898eeb251d65af2274dee6cff4df3a30a9b588b3ae25154fde",
+    "Cargo.lock": "9352cb2f08ae3a9b24bec04afddb1d9404b650c11bd9c5ab9b9d22fd1b4e50ae",
+    "Cargo.toml": "9d80b734993ae3b9d86a105668ec5fe5c53105d3e0dea295309ef5d1387d2b71",
+    "README.md": "a12056ebfaea4abd602639a22d1540e915c88188a2f89a65f7ebe6535116f38c",
+    "docs/macos-playback.md": "695158ed9673bbc50533fa96f0cb024ff339007dd44f2c5d3f2d6212c2074f32",
+    "docs/research/stock-switch2-usb-feasibility.md": "a25fb8a1508074e9f2f6a1b23c0c38d869e5d35b92ccba45b17a4b0478b0e8f2",
+    "docs/usb-baseline.md": "6e42ab54bb14f2bfd411f87e80523d6f9f7be3bcdc7ca106924921fa84417e76",
+    "evidence/resume/verify-synthetic.py": "09840390b76ee8cac0349fb27a29f617d6c11f28c90b515ccc06fc6029dc3a97",
+    "scripts/package-macos.sh": "feb01e32e0bbb0bd8383b3d116ae092dbc9939573a71c1f5b95639b8417720a6",
+    "scripts/smoke-packaged-macos.py": "c7539ed657dfe2d5964ea73b16ea2c02c53142739970fa17ff8ea9fdf9651af6",
+    "src/framing.rs": "65957d503a048708890e63e8c791952392c5ff47159e166281c6ddbfb6fc7008",
+    "src/lib.rs": "fd48a7b5f650d05579f3162c62a8df73a93247a730858b001b5ce1924eefe125",
+    "src/main.rs": "49689dfe3202d5b08f6d77af173e2e559f7abdcf911c0a2437954e8d525856cf",
+    "src/transport.rs": "e747573e9f7d76eb7336533173d6dbe3efe590e10861ccb8a9d083c4efd04118",
+    "src/usb.rs": "0e8213d32f5ec4c309d26a4e7c5bbd717446e71d877fca4c23950fbf4bd3cf96",
+    "tests/cli.rs": "bb23a4c75fe90943ed6261111d758b3a2e28e071d6262f8d517227cfc9af96ee",
+    "tests/framing.rs": "b201d4bef01ab5fc716e6ee4898995d4d8aa7be1283cd404283e5ea2fe1e93c5",
+    "tests/network.rs": "c113deb5f05a80abb174c3918873acb9a96c990725d2a9ad5e34586eb1da021a",
+    "tests/transport.rs": "7083dd843b02d3ca48750f473296e0f674cd1649db9bb392cb1ebd7f7c0ed0a4",
+    "tests/usb_cli.rs": "2efebd25fa5734517a66bb653332ab32660ae30d72f2225a5b52c14e9767f2c9"
+  },
+  "artifacts": {
+    "archive": "dist/switchbridge-macos-universal.tar.gz",
+    "archive_sha256": "8361c0da87bb964cdaaf129c5914ff89c87601314e928cd224a3367907f4780f",
+    "executable_sha256": "960305e1eda8aec168f53ed9557776b53d7ae411ab8c490f426e12fb5bfd8122",
+    "executable_archive_mode": "0o755",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "executed_natively": "arm64",
+    "signed_or_notarized": false
+  },
+  "qa": {
+    "log": "evidence/resume/release-qa.log",
+    "log_sha256": "2666030534ece8d0981ed52d1e88fc1b79baffc4e63ba01ee8b470dd96fd8fb2",
+    "tests_passed": 46,
+    "source_line_coverage": "90.98%",
+    "checks": [
+      "cargo test --locked --all-targets",
+      "cargo fmt --check",
+      "cargo clippy --locked --all-targets -- -D warnings",
+      "cargo llvm-cov --locked --all-targets --fail-under-lines 80 --summary-only",
+      "actionlint",
+      "shellcheck scripts/package-macos.sh",
+      "bash scripts/package-macos.sh",
+      "python3 evidence/resume/verify-synthetic.py",
+      "python3 -O evidence/resume/verify-synthetic.py",
+      "host usb-snapshot and self-diff (raw ignored; no controlled console experiment)",
+      "extracted archive checksums, mode, lipo and native ARM packaged TCP smoke"
+    ]
+  },
+  "synthetic_h264": {
+    "bytes": 85967,
+    "source_and_received_sha256": "487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2",
+    "decoded_frames": 60,
+    "dimensions": [
+      160,
+      90
+    ],
+    "claim": "Synthetic prerecorded H.264 over loopback; not console capture, frame timing, native Intel execution, hosted CI or projector playback."
+  },
+  "pending_acceptance": [
+    "Three physically observed console reconnect inventory pairs",
+    "Real gameplay frames attributable to console USB traffic (BLOCKED)",
+    "Native Intel test and packaged smoke execution",
+    "Passing hosted Actions run and downloadable artifact link",
+    "Physical moving-image projector observation"
+  ],
+  "history": "Supersedes metadata at 948a5cc after qualified identifier/colon-heading privacy fixes, original receive-error preservation and explicit optimized-Python verifier checks. Earlier reports retain their own reviewed snapshot IDs."
+}

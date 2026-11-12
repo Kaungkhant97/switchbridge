@@ -1,0 +1,98 @@
+{
+  "snapshot": "948a5ccff6a08e7f41eacf373ccd0e0d544c3ae1",
+  "source_snapshot": "ab2035e965197b2881d5359ab93d1ea6c5b7b08a",
+  "base": "93e61ea98590b7251ae9475ae7556d3456e01e6e",
+  "captured_at_utc": "2026-11-12T01:42:27.905839+00:00",
+  "findings": [],
+  "verdict": {
+    "clears_bar": true,
+    "basis": "No remaining reproducible critical/high or actionable medium findings in the authorized local integration scope. All three initial USB findings resolve against actual frozen source and CLI reproductions. Documented short-token, canonical VID/PID, supported-label and human-review boundaries are accepted as explicit tradeoffs, not a blanket privacy guarantee."
+  },
+  "resolved_findings": [
+    {
+      "original_location": "src/usb.rs:121-123 (b3a02d8)",
+      "claim": "Cross-inventory private-value leakage",
+      "verified_against": "Current CLI original SECRET42 reproduction passes in both directions. Actual source validates both inventories, unions their known private values, then redacts both. Isolated scratch removal of union makes all four cross-inventory regression tests fail."
+    },
+    {
+      "original_location": "src/usb.rs:94-103 (b3a02d8)",
+      "claim": "Short serial corrupts VID/PID",
+      "verified_against": "Current CLI original serial 0 reproduction preserves exact Vendor ID: 0x057e and Product ID: 0x201d. New tests assert structural keys, canonical identifiers and Unicode/token neighbor policy. Current docs explicitly describe embedded <4-character ambiguity."
+    },
+    {
+      "original_location": "src/usb.rs:76-80,116-118 (b3a02d8)",
+      "claim": "USB Serial device header rejected as empty private field",
+      "verified_against": "Current CLI original USB Serial heading reproduction exits 0, preserves 0x0403/0x6001 and removes ABC123. Exact private label allowlist accepts ordinary serial headings and retains fail-closed handling of recognized malformed/empty private properties."
+    }
+  ],
+  "checks": [
+    {
+      "command": "git rev-parse HEAD; git diff ab2035e965197b2881d5359ab93d1ea6c5b7b08a HEAD --stat",
+      "result": "HEAD matches requested snapshot; final commit changes verification-metadata.json only. Since first review only src/usb.rs runtime source changed. Other runtime, CLI, framing, transport, CI and package sources remain byte-identical to reviewed b3a02d8."
+    },
+    {
+      "command": "Independent Python SHA256 and git show source blob comparisons",
+      "result": "All 20 sources_sha256 entries match actual dedicated-worktree files and ab2035e committed blobs. final-qa.log SHA256 matches 370cce30a03199e6b38f17a439306c80e9ff28567ee10114800901407f907c5d."
+    },
+    {
+      "command": "Independent read-only verification of sibling resume-integration/dist archive; extract executable into owned ignored target scratch; lipo and --help",
+      "result": "Actual archive SHA256 077c74f66707a15093be650dca66187944772028a8f0290c862ce01fcb5cd2c3 and executable SHA256 87d6c8149e699b9eb2437b3cf3a6235b047d7a3283d8f8f9d4c28b8800b03928 match manifest. Archive contains exactly switchbridge and SHA256SUMS; mode 0755 and internal checksum verify; lipo verifies arm64 and x86_64. Extracted native ARM --help succeeds and exposes all four commands. No files in sibling worktree modified."
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo test --locked --lib --test cli --test framing --test transport --test usb_cli",
+      "exit_code": 0,
+      "result": "39 tests independently pass: 21 USB unit, 2 CLI, 7 framing, 6 transport, 3 USB CLI. Known denied network tests deliberately not retried.",
+      "log": "/tmp/swb-final-tests.log"
+    },
+    {
+      "command": "cargo fmt --check",
+      "exit_code": 0,
+      "log": "/tmp/swb-final-fmt.log"
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo clippy --locked --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/tmp/swb-final-clippy.log"
+    },
+    {
+      "command": "actionlint",
+      "exit_code": 0,
+      "log": "/tmp/swb-final-actionlint.log"
+    },
+    {
+      "command": "shellcheck scripts/package-macos.sh",
+      "exit_code": 0,
+      "log": "/tmp/swb-final-shellcheck.log"
+    },
+    {
+      "command": "Independent current CLI reproduction of all three initial USB findings",
+      "exit_code": 0,
+      "result": "Cross-input SECRET42 absent in both directions; serial 0 preserves exact identifiers; USB Serial heading accepted and ABC123 removed. Used temporary fixture inputs only."
+    },
+    {
+      "command": "Scratch rustc --test harness using original implementation plus final unit tests; isolated current union removal harness",
+      "result": "Full mental revert produces 8 failures / 13 passes. Isolated union revert produces 4 failures / 17 passes, specifically the before/after ordinary and embedded leakage assertions. Known-private-label malformed guard is the sole newly added test that also passes the original implementation; it protects retained privacy behavior rather than claiming a regression failure. Other tests check externally specified output/policy, not just helper self-consistency. All scratch changes are under ignored target; source untouched.",
+      "logs": [
+        "/tmp/swb-final-mental-revert.log",
+        "/tmp/swb-final-revert-union.log"
+      ]
+    },
+    {
+      "command": "Read final-qa.log and compare its manifest hash",
+      "result": "Parent evidence reports 41 passing tests, 90.09% lines, actual host collector smoke, native ARM extracted-package TCP sentinel, and real 85967-byte H.264 TCP roundtrip with identical SHA256 and 60 decoded frames. This is verified parent evidence, not an assertion these socket checks were independently rerun in the sandbox."
+    },
+    {
+      "command": "Inspect docs/usb-baseline.md, review2-report.md, README, packaging/workflow and deferred acceptance boundaries",
+      "result": "Policy clearly specifies supported labels, >=4 Unicode-character substring replacement, <4 token boundaries, canonical VID/PID and structural-key preservation, cross-input union and human review. No unsupported sanitization certification. No new framing/transport regressions found. Strict framing remains packet-bounded; sequential chunk transport and numeric loopback restrictions remain. Existing docs explain indefinite accept, socket I/O timeouts, incomplete-output cleanup limits and whole trailing packet loss limitation. CI artifact contract remains configured for native ARM/Intel checks and extracted smoke with both slices/checksums, without claiming an observed hosted/native Intel run."
+    }
+  ],
+  "limitations": [
+    "Known sandbox EPERM for loopback bind and hc core lock from first review; neither denied operation retried in final pass. Canonical all-targets runtime suite and packaged TCP smoke cannot independently run here. All-targets clippy did run.",
+    "Parent final-qa.log is hash-verified evidence for its own executions, not a replacement for independently run feasible checks. Full coverage not independently rerun because its canonical invocation includes denied TCP tests.",
+    "Initial review independently decoded a byte-identical actual-source in-memory SWB1 synthetic H.264 roundtrip; unchanged framing/transport source hashes confirm relevance. Final TCP + decode proof belongs to parent evidence.",
+    "No hosted Actions run, native Intel execution, physical projector result, attributable live console USB frames or three physical reconnect pairs independently observed. These remain pending; direct USB live gameplay remains BLOCKED.",
+    "No network requests, subagents, implementation edits, commits, pushes, remote writes or physical acceptance actions. Only new codex-final.json and permitted ignored scratch outputs written in this final review.",
+    "Short embedded private tokens, unknown labels, identifiers absent from both inventories and canonical VID/PID coincidences are explicitly documented limitations. Human review before sharing remains required.",
+    "Available for another frozen-snapshot review."
+  ]
+}

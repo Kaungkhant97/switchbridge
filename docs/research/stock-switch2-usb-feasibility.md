@@ -54,4 +54,4 @@ Sources were inspected on 2026-11-12. These are Nintendo's own pages; their supp
 - **S3:** [Nintendo — About USB Camera](https://www.nintendo.com/sg/hardware/switch2/usb-camera/index.html), camera connection and video-chat/game uses.
 - **S4:** [Nintendo Support — Connect a Switch 2 console to a TV](https://en-americas-support.nintendo.com/app/answers/detail/a_id/68459/p/1095/c/286), required equipment and dock HDMI steps.
 
-This report is a documented blocked feasibility decision. It does not certify successful enumeration, live capture, projector playback, or an unavailable hardware test. Claude review evidence is stored separately with the exact report SHA-256; later report changes require renewed review.
+This report is a documented blocked feasibility decision. It does not certify successful enumeration, live capture, projector playback, or an unavailable hardware test. Historical reviews are not approval of this integration; independent review of the current files remains required.

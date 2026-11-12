@@ -1,0 +1,60 @@
+{
+  "reviewer": "claude",
+  "snapshot": "2db17bddf3b76ffb57184ad9d842f219fb96ab99",
+  "source_snapshot": "d927173a9c76a381e2141b5ab6285f663653632c",
+  "transcription": "Parent-preserved normalized structured report received from independent Herdr terminal t11. Review is static; do not attribute parent runtime executions or hash recomputation to Claude.",
+  "method": "Static read-only. Reviewer observed git log and diff from 948a5cc; read current USB/main code and new unit/network tests, verify-synthetic.py, USB docs, review3-report, prior Claude transcription, metadata and release-QA result lines. Framing, transport, workflow and package/smoke scripts were unchanged from the prior review. No tests, builds or hash recomputation executed by this reviewer; earlier shell denial respected.",
+  "resolutions": {
+    "N1": "Resolved: normalized qualified UUID/UDID/Serial Number labels and malformed guards have tests; ordinary USB Serial heading remains accepted; fixtures explicitly synthetic, not observed profiler output.",
+    "N2": "Resolved: colon-terminated non-private headings scanned whole; typed VID/PID and private-field labels retain precedence; tests cover file snapshot, trailing-colon private value and both diff directions.",
+    "N3": "Accepted and documented: coincidental short-value over-redaction remains possible.",
+    "N4": "Resolved: cleanup failure logged separately, original receive error returned; real network regression checks original invalid-header error plus cleanup failure.",
+    "N5": "Resolved for verifier: three explicit RuntimeError checks replace asserts. Parent logs normal and optimized Python execution. Review log intentionally created after final verdict."
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "low",
+      "location": "src/usb.rs:172-178,186-191",
+      "claim": "General private patterns can over-match hypothetical non-private Serial Number Type fields or colon-free prose and over-redact/fail closed. No leak or actual profiler label observed.",
+      "verified_against": "Static trace only; speculative. Conservative pattern tradeoff documented in review3-report.",
+      "suggested_fix": "None required; optional future restriction of Serial Number patterns.",
+      "disposition": "Accepted conservative privacy policy; not a reproduced supported-input defect."
+    },
+    {
+      "id": "R2",
+      "severity": "low",
+      "location": "src/usb.rs:109-113",
+      "claim": "A long known private value placed in the key of a non-heading value line could remain visible. No realistic profiler format identified.",
+      "verified_against": "Static trace only; speculative and outside demonstrated profiler heading/field cases.",
+      "suggested_fix": "Optional future structural-key classification.",
+      "disposition": "Recorded limitation; manual review remains required; no further behavior change without evidence."
+    },
+    {
+      "id": "R3",
+      "severity": "info",
+      "location": "evidence/resume/verification-metadata.json:provenance",
+      "claim": "Provenance prose says final-qa.log while qa.log correctly references release-qa.log.",
+      "verified_against": "Static read.",
+      "suggested_fix": "Correct prose at metadata refresh.",
+      "disposition": "Parent corrected this editorial label after review; source hashes, QA log path/hash, executable and archive hashes unchanged."
+    }
+  ],
+  "checks_static": [
+    "Release log test counts sum to 25+2+7+3+6+3=46; coverage TOTAL90.98% matches metadata.",
+    "Metadata references source d927173 and refreshed artifact hashes, not previous948/ab2035 proof.",
+    "claude-round2.md accurately transcribes prior report and execution limits.",
+    "Synthetic fixtures are not hardware observations; console reconnects, USB capture, native Intel, hosted CI and projector remain pending.",
+    "Unchanged framing and transport had no reported defects; prior loopback/protocol integrity, unsigned/reproducibility, PR-head testing and ephemeral-port observations remain documented/accepted."
+  ],
+  "verdict": {
+    "clears_bar": true,
+    "actionable_medium_or_higher": 0,
+    "note": "Independent conclusion: no critical/high/medium. R1/R2 low and speculative; R3 informational. Concurs with Codex on requested bar without claiming zero observations."
+  },
+  "limitations": [
+    "Static review only: no independent tests, builds or hash recomputation; denied operations not retried.",
+    "46 tests,90.98%,artifact hashes,both slices,optimized Python,ARM smoke and host collector are parent evidence, not reviewer executions.",
+    "No observed legacy-profiler output, physical console, native Intel, hosted CI or projector result."
+  ]
+}
