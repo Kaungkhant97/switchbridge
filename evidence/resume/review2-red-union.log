@@ -1,0 +1,45 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.27s
+     Running unittests src/lib.rs (target/debug/deps/switchbridge-f83fff01a7c88360)
+
+running 2 tests
+test usb::tests::diff_redacts_private_values_known_only_to_after_inventory ... FAILED
+test usb::tests::diff_redacts_private_values_known_only_to_before_inventory ... FAILED
+
+failures:
+
+---- usb::tests::diff_redacts_private_values_known_only_to_after_inventory stdout ----
+
+thread 'usb::tests::diff_redacts_private_values_known_only_to_after_inventory' (3547975) panicked at src/usb.rs:383:9:
+--- before
++++ after
+@@ -1,2 +1,4 @@
+ USB:
+-  Device SECRET42 (PRIVATE-UUID):
++  Device:
++    Serial Number: [REDACTED]
++    Device UUID: [REDACTED]
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- usb::tests::diff_redacts_private_values_known_only_to_before_inventory stdout ----
+
+thread 'usb::tests::diff_redacts_private_values_known_only_to_before_inventory' (3547976) panicked at src/usb.rs:383:9:
+--- before
++++ after
+@@ -1,4 +1,2 @@
+ USB:
+-  Device:
+-    Serial Number: [REDACTED]
+-    Device UUID: [REDACTED]
++  Device SECRET42 (PRIVATE-UUID):
+
+
+
+failures:
+    usb::tests::diff_redacts_private_values_known_only_to_after_inventory
+    usb::tests::diff_redacts_private_values_known_only_to_before_inventory
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`

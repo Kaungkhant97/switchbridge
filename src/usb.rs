@@ -63,6 +63,13 @@ fn collect_inventory() -> Result<String, Box<dyn Error>> {
 }
 
 fn redact_inventory(inventory: &str) -> Result<String, Box<dyn Error>> {
+    Ok(replace_private_values(
+        inventory,
+        &collect_private_values(inventory)?,
+    ))
+}
+
+fn collect_private_values(inventory: &str) -> Result<Vec<&str>, Box<dyn Error>> {
     let mut private_values = Vec::new();
     let mut private_indent = None;
     for line in inventory.lines().filter(|line| !line.trim().is_empty()) {
@@ -82,45 +89,102 @@ fn redact_inventory(inventory: &str) -> Result<String, Box<dyn Error>> {
                 private_values.push(value);
                 private_indent = Some(indent);
             }
-        } else if sensitive_key(line) {
+        } else if malformed_private_field(line) {
             return Err("USB inventory contains a malformed private field".into());
         }
     }
     private_values.sort_by_key(|value| std::cmp::Reverse(value.len()));
     private_values.dedup();
-    Ok(replace_private_values(inventory, &private_values))
+    Ok(private_values)
 }
 
+// Preserve structural field labels and VID/PID evidence. Empty-value lines are
+// device headers, whose private identifiers must still be redacted.
 fn replace_private_values(inventory: &str, private_values: &[&str]) -> String {
-    let mut remaining = inventory;
+    inventory
+        .split_inclusive('\n')
+        .map(|line| match line.split_once(':') {
+            Some((key, _)) if matches!(key.trim(), "Vendor ID" | "Product ID") => line.to_owned(),
+            Some((key, value)) if !value.trim().is_empty() => {
+                format!("{key}:{}", replace_private_tokens(value, private_values))
+            }
+            _ => replace_private_tokens(line, private_values),
+        })
+        .collect()
+}
+
+// Long identifiers may be embedded in device names. Only ambiguous values of
+// fewer than four Unicode characters require identifier boundaries.
+fn replace_private_tokens(text: &str, private_values: &[&str]) -> String {
+    let mut offset = 0;
     let mut redacted = String::new();
-    while !remaining.is_empty() {
-        if let Some(value) = private_values
-            .iter()
-            .find(|value| remaining.starts_with(**value))
-        {
+    while offset < text.len() {
+        let remaining = &text[offset..];
+        let boundary_before = text[..offset]
+            .chars()
+            .next_back()
+            .is_none_or(|c| !identifier_char(c));
+        if let Some(value) = private_values.iter().find(|value| {
+            remaining.starts_with(**value)
+                && (value.chars().count() >= 4
+                    || (boundary_before
+                        && remaining[value.len()..]
+                            .chars()
+                            .next()
+                            .is_none_or(|c| !identifier_char(c))))
+        }) {
             redacted.push_str("[REDACTED]");
-            remaining = &remaining[value.len()..];
+            offset += value.len();
         } else {
             let character = remaining
                 .chars()
                 .next()
                 .expect("remaining text is nonempty");
             redacted.push(character);
-            remaining = &remaining[character.len_utf8()..];
+            offset += character.len_utf8();
         }
     }
     redacted
 }
 
+fn identifier_char(character: char) -> bool {
+    character.is_alphanumeric() || matches!(character, '_' | '-')
+}
+
+const PRIVATE_LABELS: &[&str] = &[
+    "serial number",
+    "serial",
+    "uuid",
+    "udid",
+    "device uuid",
+    "device udid",
+    "hardware uuid",
+    "usb serial number",
+    "device serial number",
+];
+
 fn sensitive_key(key: &str) -> bool {
-    let key = key.to_ascii_lowercase();
-    key.contains("serial") || key.contains("uuid") || key.contains("udid")
+    PRIVATE_LABELS.contains(&key.trim().to_ascii_lowercase().as_str())
+}
+
+fn malformed_private_field(line: &str) -> bool {
+    let line = line.trim().to_ascii_lowercase();
+    PRIVATE_LABELS.iter().any(|label| {
+        line == *label
+            || line
+                .strip_prefix(label)
+                .is_some_and(|rest| rest.starts_with(char::is_whitespace))
+    })
 }
 
 fn inventory_diff(before: &str, after: &str) -> Result<String, Box<dyn Error>> {
-    let before = redact_inventory(before)?;
-    let after = redact_inventory(after)?;
+    // Validate both inputs before producing output, then share known identifiers.
+    let mut private_values = collect_private_values(before)?;
+    private_values.extend(collect_private_values(after)?);
+    private_values.sort_by_key(|value| std::cmp::Reverse(value.len()));
+    private_values.dedup();
+    let before = replace_private_values(before, &private_values);
+    let after = replace_private_values(after, &private_values);
     if before == after {
         return Ok("No USB inventory changes.\n".into());
     }
@@ -319,6 +383,118 @@ mod tests {
         ] {
             assert!(redact_inventory(raw).is_err());
         }
+    }
+
+    fn assert_cross_inventory_redaction(reverse: bool) {
+        let identified =
+            "USB:\n  Device:\n    Serial Number: SECRET42\n    Device UUID: PRIVATE-UUID\n";
+        let repeated = "USB:\n  Device SECRET42 (PRIVATE-UUID):\n";
+        let (before, after) = if reverse {
+            (repeated, identified)
+        } else {
+            (identified, repeated)
+        };
+        let diff = inventory_diff(before, after).unwrap();
+        assert!(!diff.contains("SECRET42"), "{diff}");
+        assert!(!diff.contains("PRIVATE-UUID"), "{diff}");
+        assert!(diff.contains("Device [REDACTED] ([REDACTED]):"));
+    }
+
+    #[test]
+    fn diff_redacts_private_values_known_only_to_before_inventory() {
+        assert_cross_inventory_redaction(false);
+    }
+
+    #[test]
+    fn diff_redacts_private_values_known_only_to_after_inventory() {
+        assert_cross_inventory_redaction(true);
+    }
+
+    #[test]
+    fn long_private_values_are_redacted_inside_device_names_and_values() {
+        let raw = "USB:\n  Device-ABC123:\n  DeviceABC123:\n  DevicePRIVATE-UUIDsuffix:\n    Serial Number: ABC123\n    Device UUID: PRIVATE-UUID\n    Related: prefixABC123suffix prefixPRIVATE-UUIDsuffix\n";
+        let clean = redact_inventory(raw).unwrap();
+        assert!(!clean.contains("ABC123"), "{clean}");
+        assert!(!clean.contains("PRIVATE-UUID"), "{clean}");
+        assert!(clean.contains("Device-[REDACTED]:"));
+        assert!(clean.contains("Device[REDACTED]:"));
+        assert!(clean.contains("Device[REDACTED]suffix:"));
+        assert!(clean.contains("prefix[REDACTED]suffix"));
+    }
+
+    fn assert_cross_inventory_embedded_redaction(reverse: bool) {
+        let identified =
+            "USB:\n  Device:\n    Serial Number: ABC123\n    Device UUID: PRIVATE-UUID\n";
+        let repeated = "USB:\n  Device-ABC123:\n  DeviceABC123:\n  DevicePRIVATE-UUIDsuffix:\n";
+        let (before, after) = if reverse {
+            (repeated, identified)
+        } else {
+            (identified, repeated)
+        };
+        let diff = inventory_diff(before, after).unwrap();
+        assert!(!diff.contains("ABC123"), "{diff}");
+        assert!(!diff.contains("PRIVATE-UUID"), "{diff}");
+    }
+
+    #[test]
+    fn diff_redacts_embedded_values_known_only_to_before_inventory() {
+        assert_cross_inventory_embedded_redaction(false);
+    }
+
+    #[test]
+    fn diff_redacts_embedded_values_known_only_to_after_inventory() {
+        assert_cross_inventory_embedded_redaction(true);
+    }
+
+    #[test]
+    fn ordinary_serial_device_headers_are_not_private_fields() {
+        let raw = "USB:\n  USB Serial:\n    Product ID: 0x7523\n  USB-Serial Controller D:\n    Vendor ID: 0x1a86\n";
+        assert_eq!(redact_inventory(raw).unwrap(), raw);
+    }
+
+    #[test]
+    fn known_private_labels_still_fail_closed_without_single_line_values() {
+        for label in [
+            "Serial Number",
+            "Serial",
+            "UUID",
+            "UDID",
+            "Device UUID",
+            "Device UDID",
+            "Hardware UUID",
+            "USB Serial Number",
+        ] {
+            for raw in [
+                format!("{label}:\n"),
+                format!("{label} SECRET\n"),
+                format!("{label}: FIRST\n  SECOND\n"),
+            ] {
+                assert!(redact_inventory(&raw).is_err(), "accepted {raw:?}");
+            }
+        }
+    }
+
+    #[test]
+    fn short_serials_redact_complete_occurrences_without_corrupting_ids_or_keys() {
+        let raw = "USB:\n  USB Serial 0 (0):\n    Vendor ID: 0x057e\n    Product ID: 0x201d\n    Serial Number: 0\n    Related: 0 / 10 / x0 / 0x057e / 0_1 / 0-1\n";
+        assert_eq!(
+            redact_inventory(raw).unwrap(),
+            "USB:\n  USB Serial [REDACTED] ([REDACTED]):\n    Vendor ID: 0x057e\n    Product ID: 0x201d\n    Serial Number: [REDACTED]\n    Related: [REDACTED] / 10 / x0 / 0x057e / 0_1 / 0-1\n"
+        );
+        let keys = "USB:\n  Number:\n    Serial Number: Number\n    Related: Number\n";
+        assert_eq!(
+            redact_inventory(keys).unwrap(),
+            "USB:\n  [REDACTED]:\n    Serial Number: [REDACTED]\n    Related: [REDACTED]\n"
+        );
+    }
+
+    #[test]
+    fn complete_private_tokens_preserve_unicode_neighbors_and_identifier_evidence() {
+        let raw = "Serial Number: A\nDevice UUID: AB-CD\nRelated: A (AB-CD) A1 éA Aé _A A-B\nVendor ID: A\nProduct ID: AB-CD\n";
+        assert_eq!(
+            redact_inventory(raw).unwrap(),
+            "Serial Number: [REDACTED]\nDevice UUID: [REDACTED]\nRelated: [REDACTED] ([REDACTED]) A1 éA Aé _A A-B\nVendor ID: A\nProduct ID: AB-CD\n"
+        );
     }
 
     #[test]

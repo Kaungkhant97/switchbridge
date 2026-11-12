@@ -2,7 +2,8 @@
 
 Date: 2026-11-12. Branch: `feat/resume-integration`. Local host: macOS ARM64,
 Rust 1.96.0. Source attribution and SHA256 values are in [provenance.md](provenance.md).
-No historical reviews were imported as approval. All changes remain unstaged.
+No historical reviews were imported as approval. The developer handed off unstaged
+changes; parent saved baseline `b3a02d8` and separate review fixes.
 
 ## Test-first evidence
 
@@ -18,7 +19,7 @@ No historical reviews were imported as approval. All changes remain unstaged.
 - [package.log](package.log): actual build succeeds after placing the binary
   before `-verify_arch` in script, CI and docs.
 
-## Canonical checks
+## Initial integration checks (`b3a02d8`)
 
 Each command exited 0; empty logs indicate no diagnostics.
 
@@ -53,8 +54,34 @@ Chunk timestamps remain transport elapsed times, not frame timing.
 - LEA-10: native ARM and Intel test/fmt/clippy CI and both packaged smoke jobs are
   configured; remote workflow execution is deferred. Native Intel CI is required.
   Physical moving-image projector observation remains pending.
-- Parent will perform fresh independent QA/Codex/Claude review and commit.
-  No pushes, PRs, ticket changes, credential changes or paid jobs were performed.
+- Final independent review is tracked below. No pushes, PRs, ticket changes,
+  credential changes or paid jobs were performed.
 
 The fast-context search attempt failed due to an unavailable Windsurf API key;
 direct local inspection was used without changing credentials.
+
+## Current reviewed-fix QA
+
+Parent reran the full canonical suite and package checks after the USB fixes:
+[final-qa.log](final-qa.log) records **41 passing tests**, **90.09% source-line
+coverage**, formatting, Clippy with warnings denied, actionlint, shellcheck,
+universal packaging, archive/internal checksums, executable mode, both
+architecture slices, and actual extracted sender/receiver TCP smoke on ARM.
+The extracted package also preserved 85,967 bytes of FFmpeg-generated H.264,
+matched SHA256, decoded successfully, and yielded 60 frames at 160×90.
+A single local USB snapshot and self-diff exercised the actual collector;
+raw output stays ignored. This is host-tool smoke, not a controlled console trial.
+
+[Review cycle 2](review2-report.md) documents fixes, red-before-green regression
+logs, and the precise privacy policy. It resolves device-heading rejection,
+short-serial corruption of IDs/keys, and leakage across the two diff inputs.
+Additional tests prevent regressions for long identifiers embedded in names.
+The initial [Claude report](claude-preliminary.md) and
+[Codex report](codex-round1.json) are findings on earlier sources, not final
+approval. [CI reference checks](ci-reference-check.md) validate official action
+commit references and runner labels without claiming a hosted run.
+
+Frozen revision, executable/archive/source hashes, UTC timestamp, and tool
+versions will be stored in `verification-metadata.json`. Final reviewer results
+and the convergence verdict will be indexed in `review-log.md`. Those files
+identify the exact snapshot reviewed and retain the hardware/hosted-CI gates.

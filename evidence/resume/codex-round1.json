@@ -1,0 +1,97 @@
+{
+  "snapshot": "b3a02d83d17995124577aed0e453165f52baf6c7",
+  "base": "93e61ea98590b7251ae9475ae7556d3456e01e6e",
+  "findings": [
+    {
+      "severity": "medium",
+      "location": "src/usb.rs:121-123",
+      "claim": "Diff redacts each input using only its own private fields. A private value identified in BEFORE can be printed unredacted from AFTER when its field is absent there, violating redaction everywhere across supplied evidence.",
+      "verified_against": "Frozen CLI exit 0: BEFORE=\"USB:\\n  Device SECRET42:\\n    Serial Number: SECRET42\\n\", AFTER=\"USB:\\n  Device SECRET42:\\n    Product ID: 0x201d\\n\". stdout includes +  Device SECRET42:. Reverse direction has the analogous risk. No external disclosure performed.",
+      "suggested_fix": "Collect known private values from both inputs before rendering either side; apply their union to both inventories. Add CLI regression asserting SECRET42 absent in both directions while preserving device IDs."
+    },
+    {
+      "severity": "medium",
+      "location": "src/usb.rs:94-103",
+      "claim": "Blanket substring replacement corrupts device identifiers when serial values overlap VID/PID text.",
+      "verified_against": "Frozen usb-diff CLI with AFTER=\"USB:\\n  Vendor ID: 0x057e\\n  Product ID: 0x201d\\n  Serial Number: 0\\n\" exits 0 and prints Vendor ID: [REDACTED]x[REDACTED]57e and Product ID: [REDACTED]x2[REDACTED]1d. Independently reproduced before parent reported same preliminary finding.",
+      "suggested_fix": "Preserve typed vendor/product identifier fields while removing sensitive field values and repeated standalone private values. Add a short serial regression asserting exact VID/PID preservation."
+    },
+    {
+      "severity": "medium",
+      "location": "src/usb.rs:76-80,116-118",
+      "claim": "A device heading containing Serial is mistaken for an empty sensitive property, so valid USB serial-adapter inventory fails closed rather than producing evidence.",
+      "verified_against": "Frozen usb-diff with AFTER=\"USB:\\n  USB Serial:\\n    Vendor ID: 0x0403\\n    Product ID: 0x6001\\n    Serial Number: ABC123\\n\" exits 1: USB inventory contains an empty or multiline private field. Parent reported preliminary finding; independently reproduced here. Snapshot uses same redactor.",
+      "suggested_fix": "Distinguish profiler device/container headings from sensitive property keys while retaining rejection of malformed sensitive properties. Add serial-adapter heading regression."
+    }
+  ],
+  "verdict": {
+    "clears_bar": true,
+    "basis": "No confirmed critical/high findings in frozen local integration scope; three actionable medium findings. This is the requested severity bar, not a claim that all checks passed. Re-review later fix snapshot and obtain permitted TCP verification."
+  },
+  "checks": [
+    {
+      "command": "git rev-parse HEAD; git status --short",
+      "result": "Pinned requested snapshot; initially clean; no implementation changes."
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo test --locked --all-targets",
+      "exit_code": 101,
+      "result": "12 USB unit, 2 CLI and 7 framing tests pass. Both network tests fail at tests/network.rs:22 on loopback TcpListener::bind with OS EPERM. Suite stops before remaining integration binaries. Environment restriction, not a reproduced product defect.",
+      "log": "/tmp/swb-review-tests.log"
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo test --locked --test transport --test usb_cli",
+      "exit_code": 0,
+      "result": "6 transport and 3 USB CLI tests pass; combined 30 non-network tests pass."
+    },
+    {
+      "command": "cargo fmt --check",
+      "exit_code": 0,
+      "log": "/tmp/swb-review-fmt.log"
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo clippy --locked --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/tmp/swb-review-clippy.log"
+    },
+    {
+      "command": "actionlint; shellcheck scripts/package-macos.sh",
+      "result": "Both ran with no diagnostics."
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo build --locked --release --target aarch64-apple-darwin --target x86_64-apple-darwin",
+      "exit_code": 0,
+      "result": "Both actual snapshot executable targets build."
+    },
+    {
+      "command": "Scratch rustc harness importing actual src/framing.rs and src/transport.rs; FFmpeg generate/decode; ffprobe",
+      "result": "Generated 2-second 160x90 H.264; actual send/receive functions preserve 85967 bytes; both SHA256 487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2; received clip decodes to 60 frames. In-memory framing roundtrip only, not TCP, console capture, or frame timing."
+    },
+    {
+      "command": "Independent lipo, scratch tar creation/extraction, shasum verification, extracted --help",
+      "result": "Both arm64/x86_64 slices verify; checksum verifies; extracted native ARM help exposes all four commands. Script itself inspected but not run because dist is outside assigned ownership. This does not replace packaged TCP smoke."
+    },
+    {
+      "command": "Source/test/docs/workflow inspection",
+      "result": "Strict fixed SWB1 fields, bounded packet length, partial EOF handling and checked ordering verified against actual source. Numeric loopback endpoint validation; receiver create_new and error cleanup; timeout scope documented. CI specifies ARM/Intel native check matrices, both-target universal packaging, archive/internal checksums and extracted smoke on both native architectures. No hosted run claimed. Docs retain physical reconnect, USB live frame, native Intel execution, and projector acceptance gates."
+    },
+    {
+      "command": "Mental revert assessment",
+      "result": "USB integration regressions test real CLI dispatch, help exposure and diff redaction; removing USB dispatch causes snapshot usage and diff exit/content assertions to fail, removing help entries fails command assertions. Wire-byte fixture is independently specified, not just encode/decode self-consistency. Transport byte equality is complemented by malformed/ordering tests and FFmpeg decoding. Packaged sentinel is correctly documented as arbitrary bytes, not H.264 decoding. No new tracked tests added. Existing tests omit the three reproduced USB cases."
+    },
+    {
+      "command": "hc run --bg ...; hc send t9 ...",
+      "exit_code": 5,
+      "result": "Both denied by sandbox: cannot open core lock: Operation not permitted. Manual read successfully; no terminal created. Parent notification could not be delivered via hc."
+    }
+  ],
+  "limitations": [
+    "No network requests, subagents, commits, pushes, source edits, remote writes or other worktree edits performed.",
+    "Sandbox denies loopback binds and hc core access. Cannot independently certify actual TCP roundtrip or extracted sender/receiver smoke in this environment.",
+    "No hosted CI or native Intel execution. Cross compilation and lipo checks are not native Intel validation.",
+    "No physical console reconnect pairs, observed attributable USB gameplay frames, or projector observation. Those acceptance items remain pending; direct USB live gameplay remains BLOCKED.",
+    "External research references not fetched per no-network scope. Reviewed internal claim boundaries only.",
+    "Coverage tool not rerun; historical coverage logs are evidence only. Existing parent/developer logs not substituted for independent checks.",
+    "Local scratch under ignored target/review-scratch and /tmp; only tracked output owned is this new JSON. Await later frozen snapshot for re-review."
+  ]
+}

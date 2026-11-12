@@ -73,4 +73,3 @@ test help_exposes_usb_commands_alongside_transport ... ok
 test usb_diff_cli_reads_paths_and_redacts_private_identifiers ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-
