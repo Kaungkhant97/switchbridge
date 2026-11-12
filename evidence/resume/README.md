@@ -119,3 +119,33 @@ Hosted ARM/Intel CI, native Intel execution and a downloadable GitHub artifact
 link remain unverified. The full goal has not been declared achieved while
 that remote validation remains. Console reconnect/live-frame and physical
 projector gates remain separately pending as requested.
+
+## Hosted CI verification
+
+User authorized publication; [PR #2](https://github.com/Kaungkhant97/switchbridge/pull/2)
+is open. [Run 43141901934](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934)
+passed all five jobs at exact source `ce8aeac`: ARM and Intel checks, universal
+package, extracted-package smoke on ARM and Intel. [Hosted QA](hosted-ci.md)
+records actual artifact ID, expiry, ZIP/archive/executable hashes and downloaded
+package runtime validation; [structured results](hosted-ci.json) retain job and
+command conclusions. This supersedes earlier pending hosted/native Intel notes;
+physical acceptance is still pending. A newly requested CI/CD release extension
+is being assessed separately; no release or tag has been published.
+
+## Parallel work handoff
+
+The [consolidated roadmap](../../docs/superpowers/plans/2026-11-12-switchbridge-parallel-work.md)
+links the four ticket-owner plans and architecture pair's reviewed plan. The
+[import manifest](parallel-planning.json) records exact reviewed document hashes
+and ownership. Primary-source [C4/data-flow research](../../docs/research/2026-11-12-c4-dataflow-practices.md)
+includes the independent review and corrections. These are planning artifacts;
+final architecture views wait for actual merged main. Hardware observations and
+release policy remain pending.
+
+
+Practical follow-up records: [LEA-7 closeout draft](lea7-closeout-draft.md),
+[LEA-9 closeout draft](lea9-closeout-draft.md),
+[blank USB trial record](../../docs/usb-trial-record-template.md) and
+[blank projector record](../../docs/projector-trial-record-template.md).
+Their import hashes are in [acceptance-handoff.json](acceptance-handoff.json).
+Templates contain no physical observations; closeout text has not been posted.

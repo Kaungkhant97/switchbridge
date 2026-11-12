@@ -31,10 +31,15 @@ its physical evidence gate. No third-party runtime dependencies added.
   source; execution restrictions and residual low observations are documented.
   See `evidence/resume/review-log.md`, `release-qa.log` and
   `verification-metadata.json` for exact source/artifact hashes and tool versions.
-- Hosted CI/native Intel execution and downloadable GitHub artifact links are
-  **pending this PR's run**. Three physical console reconnects, attributable USB
-  gameplay frames and projector observation remain open; do not close their
-  hardware acceptance gates based on these host tests.
+- [Hosted macOS CI](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934)
+  passed all five jobs at `ce8aeac`: native ARM/Intel checks, universal package,
+  and extracted smoke on both. The exact [downloadable artifact](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934/artifacts/13909373980)
+  was independently downloaded and verified, including real 60-frame H.264
+  loopback/decode on ARM. Artifact expires 2026-11-26; `hosted-ci.md` records
+  hashes and execution boundaries. Subsequent source changes need their own CI.
+- Three physical console reconnects, attributable USB gameplay frames and
+  projector observation remain open; do not close their hardware acceptance
+  gates based on host tests. No release or tag has been published.
 
 ## Merge Danger
 
@@ -50,3 +55,11 @@ Adds CLI transport/evidence collection and macOS build artifacts. PR CI tests
 the exact PR head on ARM and Intel; local cross-compilation is not native Intel
 execution. SWB1 lacks a final stream digest/acknowledgment; proof retains explicit
 file hash comparisons.
+
+## Parallel follow-up plans
+
+Four ticket-owner plans and the reviewed architecture documentation plan are
+linked from `docs/superpowers/plans/2026-11-12-switchbridge-parallel-work.md`.
+The architecture pair's primary-source research and exact import hashes are
+included. This adds planning/evidence only; physical acceptance, actual merge,
+final architecture authoring and optional release choice remain separate gates.

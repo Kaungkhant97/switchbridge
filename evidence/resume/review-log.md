@@ -7,8 +7,8 @@ Date: 2026-11-12. Branch: `feat/resume-integration`.
 Codex and Claude independently cleared the same frozen snapshot
 `2db17bddf3b76ffb57184ad9d842f219fb96ab99`, with source snapshot
 `d927173a9c76a381e2141b5ab6285f663653632c`. Neither final pass required an
-implementation change. No critical/high/medium finding remains. This is local
-source convergence, not completion of native Intel/hosted-CI or physical gates.
+implementation change. No critical/high/medium finding remains. This is source convergence. Subsequent hosted/native Intel CI verification is
+recorded below; physical gates remain pending.
 
 | Pass | Reviewer and artifact | Findings | Action and outcome |
 | --- | --- | --- | --- |
@@ -72,13 +72,24 @@ not edited.
 | LEA-8 integrated snapshot/diff tooling | 25 USB unit tests, three USB CLI tests, actual host snapshot/self-diff pass; redaction and overwrite guards verified. Controlled console enumeration remains pending. |
 | LEA-9 honest feasibility decision | BLOCKED/UNVERIFIED direct USB live capture decision and falsifiable physical evidence gate retained; already-landed research history preserved. No invented descriptors, identifiers or live frames. |
 | LEA-10 local universal package | Actual ARM64/x86_64 slices, archive/internal checksums, executable mode and native ARM packaged TCP verified; [metadata](verification-metadata.json) records immutable source/binary/archive hashes, time and versions. |
-| Native ARM/Intel hosted CI and downloadable GitHub artifact | Workflow configured and linted; official runner labels/action SHAs checked. **PENDING remote publication/authorized CI run**; no run or artifact URL invented. |
+| Native ARM/Intel hosted CI and downloadable GitHub artifact | **PASS** at source `ce8aeac`: all five jobs in [run 43141901934](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934) passed; downloaded artifact independently validated. See [hosted CI evidence](hosted-ci.md). |
 | Three console reconnects, actual USB gameplay, projector | **PENDING physical observation**, expressly retained by the goal. One host collector smoke does not satisfy these gates. |
 | Two independent reviews and actionable findings | Final reports clear medium-or-higher; substantive findings resolved with red/green evidence; residual low/speculative limits recorded. |
-| Local reviewable handoff | Commits, current package, metadata, reports and [PR draft](pr-draft.md) prepared. No pushes, PR creation, ticket changes, remote jobs or credential changes performed in this resumed work. |
+| Reviewable handoff | User authorized continuing the publishing proposal; branch pushed and [PR #2](https://github.com/Kaungkhant97/switchbridge/pull/2) opened. Hosted/native Intel CI and downloaded artifact QA passed. No merge, release publication or credential change performed. |
 
-The full thread goal is not claimed complete while hosted/native Intel CI is
-unverified. The next authorized proposal is to push this reviewed branch and
-open its prepared PR, which triggers the configured macOS workflow. The supplied
-AGENTS.md external-action boundary requires explicit user approval for that
-GitHub mutation. Physical acceptance remains separately pending regardless of CI.
+User approval to continue authorized branch publication and PR creation.
+The GitHub connector returned a definitive 403 for creation; the locally
+authenticated GitHub CLI opened PR #2 successfully. All five hosted jobs passed
+on `ce8aeac`, and independent Herdr QA downloaded the exact artifact, checked ZIP,
+archive and executable hashes, both slices, mode and actual native ARM transport
+plus 60-frame H.264 decoding. Parent independently read job results, architecture
+logs and artifact hashes. [Full hosted evidence](hosted-ci.md) and
+[structured evidence](hosted-ci.json) distinguish hosted Intel from local ARM.
+
+The user subsequently requested a separate GitHub CI/CD agent. That agent is
+assessing release delivery in dedicated worktree `resume-cicd`; draft release,
+auto-public release, and artifact-only behavior are awaiting the user's choice.
+Existing CI and downloadable artifact delivery are already operational. No tag,
+GitHub Release, deployment or signing secret has been created. Physical console
+and projector acceptance remain separately pending. The expanded CI/CD request
+is not declared complete merely because the original hosted-CI gap is closed.

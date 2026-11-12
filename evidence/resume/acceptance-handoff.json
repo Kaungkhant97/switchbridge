@@ -1,0 +1,25 @@
+{
+  "status": "reviewed drafts/templates; no ticket mutation or physical observation",
+  "documents": [
+    {
+      "owner_worktree": "plan-lea7",
+      "path": "evidence/resume/lea7-closeout-draft.md",
+      "sha256": "a2d19ac4846f176083ca8ce41ff6550a94f44a56de06694d410638a93316065f"
+    },
+    {
+      "owner_worktree": "plan-lea9",
+      "path": "evidence/resume/lea9-closeout-draft.md",
+      "sha256": "a304704d31dd94537744b19dee479b40b74c3f8b42555afc1567a9170f9ee7e4"
+    },
+    {
+      "owner_worktree": "plan-lea8",
+      "path": "docs/usb-trial-record-template.md",
+      "sha256": "07e8ea333511ab9f007f91cb7f95b533d3cc386b4c713ab8118891dc6bebd5e2"
+    },
+    {
+      "owner_worktree": "resume-cicd",
+      "path": "docs/projector-trial-record-template.md",
+      "sha256": "3cbccdb6f1c2b775c37aae13c5b7eabc3e8f75df46abc9ff3352316ec10f7621"
+    }
+  ]
+}
