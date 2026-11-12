@@ -1,0 +1,166 @@
+{
+  "source_sha": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab",
+  "status": "final accepted render artifacts; source anchors corrected, USB polished",
+  "files": [
+    {
+      "path": "docs/architecture/diagrams/c4-container.html",
+      "sha256": "188e55c71e097f9d07ec4ee4e210dfeda678d4ddfbfb97288ba2c00ed1fe00df"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.json",
+      "sha256": "5c64cd5e600792b7d2923e9b2f5aa3333ec104ee3285fe7d99dd1bcc89e33296"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.1440x900.dark.png",
+      "sha256": "bd8f599a634c97eaf97fe80a3c55478e4773017867b82a17ab16ff960af6ef34"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.1440x900.light.png",
+      "sha256": "01f2239c51b56eda6f4d2e4f17b0b805f02f2a7c8b71759f2700017836a7ef08"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.2048x1320.dark.png",
+      "sha256": "81970580b3c0e016a646bebd73a013b3783b37760bc0f4125d514e93a99c57fc"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.2048x1320.light.png",
+      "sha256": "7e42e56b2ce81eb71e94481104348733a43eb5a05e8e6758bf5ed294d2066061"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.html",
+      "sha256": "d36bb37814ffcb6adb1c72b2938d0d2aa2649aaedac01f7c914a3e5a8d422d77"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.json",
+      "sha256": "22b24574d45b30492ad47da1155fa2428ef3430c1d161b1022192b5ed5b6a0dc"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.html",
+      "sha256": "c3f36a3832a1079ad8c59475e60a46e2dc58dd5d3d2ee8b9cf30f082bffdb2fd"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.json",
+      "sha256": "b46649cdcff1aa7d017360178d37b31c2c5bd59e98f72b937d10685be14ff8c2"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.1440x900.dark.png",
+      "sha256": "bb45919e7555f37a91399bcb9bf17ace9308aab15694191f0b287571c811152b"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.1440x900.light.png",
+      "sha256": "9d30d9416be2a6a5a1b46cc2c2ce21cd1b4862e51c9498c0b377291c15e66854"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.2048x1320.dark.png",
+      "sha256": "14ebc959b384765f5b8bbb68c34a69240486f970f11fa9dc4974360e3f63f1b1"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.2048x1320.light.png",
+      "sha256": "6471de6c80b2931387a7ea4a1aea3411a3c385271f1d66f27711f43b8c5931b9"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.html",
+      "sha256": "b0076277b700b635ca8bc30e8ecbc8677eefd2572b48f521c6d3e82447120f31"
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.json",
+      "sha256": "b29b3a5aed3bcc4f6c57582850d7c144dac91a1f1297cd5df331d8e3f1cc37c0"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.html",
+      "sha256": "bdfff237555688d58d1d263e8c0a12ddd6892e303e18c78b7d10489c68bb52e6"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.json",
+      "sha256": "8f0984ef793d6107c6741595f3ddd3220aeeb1f2bacf5650e237ce5825442fda"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.1440x900.dark.png",
+      "sha256": "ce9a1da56f3d2464f5d980389950979dec39c416a06366f7ce993931be80f7ad"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.1440x900.light.png",
+      "sha256": "1800e80077f5ea9312a352fc407ffad1e4ae59034177cf54b23c43abff312f66"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.2048x1320.dark.png",
+      "sha256": "52045769a09a8c9a839c67a38d5027df6328bec42a4eab6fd22f44f514feb91a"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.2048x1320.light.png",
+      "sha256": "56f5e0d6ba45a82a20f337dbff5f9c6b5c183e880918ca676fd1fecd6bead4df"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.html",
+      "sha256": "4116d38fa91a243eefa5014baddc5763b223bed94607375109371fa91acffa3e"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.json",
+      "sha256": "e3151532d711ec0e0443c7fe68192e83c7f53e90a75e47292715aa0c01161ae1"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.html",
+      "sha256": "cd933dc51d5c7478270c276558ec113b8a0398e003dee1fe96147fad17f00d77"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.json",
+      "sha256": "c4e1ebc26a0f00954bf88c5e9fdb84fe6db1e503e2d987579aada686abd71482"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.1440x900.dark.png",
+      "sha256": "58a6e6b84a3135f7305bb460a6f6b42cb0cb99c04bd1739e08c1671fd76e694b"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.1440x900.light.png",
+      "sha256": "1e8d5716c05ac4dbdefd7b60fd7bb6735d6b18d8c61ee4769117a2a13f676530"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.2048x1320.dark.png",
+      "sha256": "e4a053d07f1a9a322e51ae1803520b333222f350f95262cddc5af72e5a789ca3"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.2048x1320.light.png",
+      "sha256": "fbc0d9ca2b8bc96bb4952a79c1e4656e47232a36905d9ece7090b12c356e38f6"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.html",
+      "sha256": "a0f5903e2ac17dc872640b66bf4aa5e4dfd4dbb92b0026b35d7c324f9cfee335"
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.json",
+      "sha256": "3c1f8f52ecc8402226eb8f1ff65d571750c13e87cddc784a2778c161ab905e92"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.html",
+      "sha256": "b9c96943899f6d6c17c3d3fd29ad82b5bcea7bf00b34962fa8a6d81f08ef2794"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.json",
+      "sha256": "a5f6c0b69631f9bcc266c02a2e89d388d7b331e9e75a3b851a120a326d278ca7"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.1440x900.dark.png",
+      "sha256": "64be578e0821a07f6deb8f4c7a52c1d76fc39f9ba10a8870fa41777a57d24405"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.1440x900.light.png",
+      "sha256": "33e83a51924e11fc00ebd85eea5b7893f1c35273e2422a8cb19850fde6646f82"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.2048x1320.dark.png",
+      "sha256": "bceffccdadfc7d8a84995f70ed82d255e50a8ce112553f0ce20e7846a53afbc2"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.2048x1320.light.png",
+      "sha256": "0234fc96c304035bfcce4643b3f75fda20cd936d10bedb7b3e705e9b764b1ea5"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.html",
+      "sha256": "b21f090b3043a57af1af66a71444bddd017025742a4475b08868f1bfb4899215"
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.json",
+      "sha256": "3bb9b14e13f3e01844c941bd0bfead3e4ead2bb82b0a2b697985ad16e39f94af"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SwitchBridge \u00b7 C4 system context",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Kaungkhant97/switchbridge",
+      "revision": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab"
+    },
+    "viewBox": [
+      650,
+      350
+    ],
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Software system \u00b7 CLI"
+        },
+        "external": {
+          "label": "Person / external system"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "operator",
+      "type": "external",
+      "label": "Operator",
+      "sublabel": "Person \u00b7 runs local experiments",
+      "pos": [
+        10,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "switchbridge",
+      "type": "frontend",
+      "label": "SwitchBridge",
+      "sublabel": "Software system \u00b7 host-side experiments",
+      "tag": "Prerecorded transport + USB evidence",
+      "pos": [
+        230,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "src/main.rs",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "id": "macos",
+      "type": "external",
+      "label": "macOS inventory tools",
+      "sublabel": "External system \u00b7 hardware inventory",
+      "pos": [
+        450,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "src/usb.rs",
+          "line": 48
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "SwitchBridge scope",
+      "wraps": [
+        "switchbridge"
+      ],
+      "pad": 20
+    }
+  ],
+  "connections": [
+    {
+      "id": "operator-use",
+      "from": "operator",
+      "to": "switchbridge",
+      "label": "Runs CLI experiments",
+      "labelAt": [
+        215,
+        60
+      ],
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          105,
+          70
+        ],
+        [
+          325,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "inventory-dependency",
+      "from": "switchbridge",
+      "to": "macos",
+      "label": "Requests USB inventory",
+      "labelAt": [
+        435,
+        290
+      ],
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          325,
+          270
+        ],
+        [
+          545,
+          270
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Implemented scope",
+      "items": [
+        "Prerecorded H.264 moves over local TCP.",
+        "USB commands save and compare redacted inventories."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "UNVERIFIED \u00b7 outside implemented flow",
+      "items": [
+        "No console USB video source is implemented.",
+        "Local transport and inventory are separate experiments."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Pinned source",
+      "items": [
+        "Merged main e1b81f7 \u00b7 12 Nov 2026",
+        "Runtime, USB evidence and CI have separate detailed views."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "reviewer": "t23 architecture lead",
+  "source_revision": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab",
+  "method": "Actual image reader inspection of all20 PNGs, light/dark at1440x900 and2048x1320; not inferred from automated receipts",
+  "visual_review": "passed",
+  "observations": [
+    "C4 compact authored canvas materially improves smallest-size labels and legend spacing.",
+    "USB diff command icon crowding resolved; full command remains in prose and node metadata.",
+    "Prerecorded/USB stage views are intentionally sparse, labels readable; no ambiguous arrows, unrelated-node crossing or cropping observed.",
+    "CI dependency order/upload-before-smoke remains legible and distinct from runtime/hardware."
+  ],
+  "screenshots": [
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.1440x900.dark.png",
+      "sha256": "bd8f599a634c97eaf97fe80a3c55478e4773017867b82a17ab16ff960af6ef34",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.1440x900.light.png",
+      "sha256": "01f2239c51b56eda6f4d2e4f17b0b805f02f2a7c8b71759f2700017836a7ef08",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.2048x1320.dark.png",
+      "sha256": "81970580b3c0e016a646bebd73a013b3783b37760bc0f4125d514e93a99c57fc",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-container.visual-check.2048x1320.light.png",
+      "sha256": "7e42e56b2ce81eb71e94481104348733a43eb5a05e8e6758bf5ed294d2066061",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.1440x900.dark.png",
+      "sha256": "bb45919e7555f37a91399bcb9bf17ace9308aab15694191f0b287571c811152b",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.1440x900.light.png",
+      "sha256": "9d30d9416be2a6a5a1b46cc2c2ce21cd1b4862e51c9498c0b377291c15e66854",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.2048x1320.dark.png",
+      "sha256": "14ebc959b384765f5b8bbb68c34a69240486f970f11fa9dc4974360e3f63f1b1",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/c4-context.visual-check.2048x1320.light.png",
+      "sha256": "6471de6c80b2931387a7ea4a1aea3411a3c385271f1d66f27711f43b8c5931b9",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.1440x900.dark.png",
+      "sha256": "ce9a1da56f3d2464f5d980389950979dec39c416a06366f7ce993931be80f7ad",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.1440x900.light.png",
+      "sha256": "1800e80077f5ea9312a352fc407ffad1e4ae59034177cf54b23c43abff312f66",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.2048x1320.dark.png",
+      "sha256": "52045769a09a8c9a839c67a38d5027df6328bec42a4eab6fd22f44f514feb91a",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-prerecorded-loopback.visual-check.2048x1320.light.png",
+      "sha256": "56f5e0d6ba45a82a20f337dbff5f9c6b5c183e880918ca676fd1fecd6bead4df",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.1440x900.dark.png",
+      "sha256": "58a6e6b84a3135f7305bb460a6f6b42cb0cb99c04bd1739e08c1671fd76e694b",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.1440x900.light.png",
+      "sha256": "1e8d5716c05ac4dbdefd7b60fd7bb6735d6b18d8c61ee4769117a2a13f676530",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.2048x1320.dark.png",
+      "sha256": "e4a053d07f1a9a322e51ae1803520b333222f350f95262cddc5af72e5a789ca3",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/dataflow-usb-evidence.visual-check.2048x1320.light.png",
+      "sha256": "fbc0d9ca2b8bc96bb4952a79c1e4656e47232a36905d9ece7090b12c356e38f6",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.1440x900.dark.png",
+      "sha256": "64be578e0821a07f6deb8f4c7a52c1d76fc39f9ba10a8870fa41777a57d24405",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.1440x900.light.png",
+      "sha256": "33e83a51924e11fc00ebd85eea5b7893f1c35273e2422a8cb19850fde6646f82",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.2048x1320.dark.png",
+      "sha256": "bceffccdadfc7d8a84995f70ed82d255e50a8ce112553f0ce20e7846a53afbc2",
+      "inspected": true
+    },
+    {
+      "path": "docs/architecture/diagrams/workflow-ci-artifacts.visual-check.2048x1320.light.png",
+      "sha256": "0234fc96c304035bfcce4643b3f75fda20cd936d10bedb7b3e705e9b764b1ea5",
+      "inspected": true
+    }
+  ]
+}

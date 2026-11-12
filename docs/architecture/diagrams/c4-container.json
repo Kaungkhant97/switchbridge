@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SwitchBridge \u00b7 C4 container view",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Kaungkhant97/switchbridge",
+      "revision": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab"
+    },
+    "viewBox": [
+      650,
+      350
+    ],
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Rust CLI"
+        },
+        "external": {
+          "label": "External artifacts / OS"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "files",
+      "type": "external",
+      "label": "Local files",
+      "sublabel": "Media + inventory artifacts",
+      "pos": [
+        10,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "switchbridge",
+      "sublabel": "Container \u00b7 Rust std-only executable",
+      "tag": "send \u00b7 receive \u00b7 usb-snapshot \u00b7 usb-diff",
+      "pos": [
+        230,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "src/main.rs",
+          "line": 19
+        },
+        {
+          "path": "Cargo.toml",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "os",
+      "type": "external",
+      "label": "macOS tools",
+      "sublabel": "system_profiler \u00b7 sysctl \u00b7 sw_vers",
+      "pos": [
+        450,
+        130
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "src/usb.rs",
+          "line": 48
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "SwitchBridge scope",
+      "wraps": [
+        "cli"
+      ],
+      "pad": 20
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-files",
+      "from": "cli",
+      "to": "files",
+      "label": "Reads / creates files",
+      "labelAt": [
+        215,
+        60
+      ],
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          325,
+          70
+        ],
+        [
+          105,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "cli-os",
+      "from": "cli",
+      "to": "os",
+      "label": "Invokes inventory tools",
+      "labelAt": [
+        435,
+        290
+      ],
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          325,
+          270
+        ],
+        [
+          545,
+          270
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Command roles, not separate services",
+      "items": [
+        "send / receive are instances of this one local application.",
+        "CLI-to-CLI traffic is expanded in the prerecorded data flow."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Rust code organization",
+      "items": [
+        "main: dispatch + I/O; transport: chunk handling.",
+        "framing: SWB1; usb: inventory + redaction. No C4 component claim."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Scope and boundaries",
+      "items": [
+        "File artifacts sit outside the executable in this model.",
+        "System scope is not a security sandbox or deployment claim."
+      ]
+    }
+  ]
+}

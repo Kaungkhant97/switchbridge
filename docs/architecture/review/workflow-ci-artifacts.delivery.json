@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/workflow-ci-artifacts.json",
+  "output": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/workflow-ci-artifacts.html",
+  "specification": {
+    "sha256": "a5f6c0b69631f9bcc266c02a2e89d388d7b331e9e75a3b851a120a326d278ca7",
+    "bytes": 2743
+  },
+  "artifact": {
+    "sha256": "b9c96943899f6d6c17c3d3fd29ad82b5bcea7bf00b34962fa8a6d81f08ef2794",
+    "bytes": 705436
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
