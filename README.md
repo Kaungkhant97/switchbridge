@@ -71,10 +71,26 @@ reviewed for serial numbers and other private device identifiers.
 ## USB evidence tooling
 
 ```sh
-switchbridge usb-snapshot evidence/trial-1-before.txt
-switchbridge usb-snapshot evidence/trial-1-after.txt
-switchbridge usb-diff evidence/trial-1-before.txt evidence/trial-1-after.txt
+SESSION=.evidence/lea-8/ACTUAL-UNIQUE-SESSION
+umask 077
+mkdir -p .evidence/lea-8 || exit 1
+mkdir "$SESSION" || exit 1
+chmod 700 "$SESSION" || exit 1
+git check-ignore -q -- "$SESSION/trial-1-before.txt" || exit 1
+set -o noclobber
+switchbridge usb-snapshot "$SESSION/trial-1-before.txt"
+# Human connects the stock console at HOME using the confirmed data cable.
+switchbridge usb-snapshot "$SESSION/trial-1-after.txt"
+switchbridge usb-diff "$SESSION/trial-1-before.txt" "$SESSION/trial-1-after.txt" > "$SESSION/trial-1-diff.txt"
 ```
+
+Run from the repository root in a dedicated shell, replacing the session marker
+with a fresh unique label; disconnect the console before the first snapshot.
+Run collection commands individually and record each actual exit immediately;
+stop on failure. Repeat as trials 2 and 3 with a disconnect before each pair.
+Keep originals, logs and failed attempts private. Only explicitly privacy-reviewed
+sanitized copies and their hashes enter `evidence/lea-8/<session>/` for authorized
+sharing; follow the [blank USB trial record](docs/usb-trial-record-template.md).
 
 Snapshot collection requires macOS, redacts serial/UUID/UDID values, and refuses
 existing output files. Diff inputs are also redacted before printing. Follow
@@ -109,3 +125,6 @@ shellcheck scripts/package-macos.sh
 Integration provenance and fresh verification records are in
 [evidence/resume](evidence/resume/README.md). Historical source-worktree reviews
 are not approval of the integrated code.
+
+Architecture views and source/evidence boundaries are indexed in
+[the architecture guide](docs/architecture/README.md), including its paired review.

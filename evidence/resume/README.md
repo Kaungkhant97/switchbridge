@@ -5,6 +5,34 @@ Rust 1.96.0. Source attribution and SHA256 values are in [provenance.md](provena
 No historical reviews were imported as approval. The developer handed off unstaged
 changes; parent saved baseline `b3a02d8` and separate review fixes.
 
+## Current navigation and provenance boundary
+
+PR2 and PR3 are merged. The initial [merged-main CI report](merged-main-ci.md)
+records `e1b81f7` run `43178062662`. The later
+[post-completion Claude audit](../../docs/research/2026-11-12-postcompletion-claude-audit.md)
+records main `c23c2cf` run `43181069547`, all five jobs passing. These are
+metadata/status records, not downloaded-byte validation of their artifacts.
+The historical downloaded and runtime-verified artifact remains the distinct
+`ce8aeac` proof below.
+
+See the [architecture guide](../../docs/architecture/README.md),
+[paired review](../../docs/architecture/review/paired-review.md), and
+[post-completion Claude audit](../../docs/research/2026-11-12-postcompletion-claude-audit.md).
+Hardware reconnect/live-frame and projector trials remain pending; optional
+CD/release policy is unselected.
+
+Frozen verification metadata and architecture source baseline/manifests identify
+historical pinned snapshots (including the `e1b81f7` source baseline). Their
+20-file source hashes and 75-file architecture package remain historical proof,
+not a claim that all those source hashes match a later HEAD. Post-audit manual
+privacy/navigation corrections to root `README.md` and `docs/usb-baseline.md`
+are later documentation changes; runtime code is unchanged. Do not rewrite old
+build provenance or frozen manifests to present these corrections as old bytes.
+The architecture package itself is unchanged.
+
+The sections below retain historical run/source/review identities; earlier
+pending hosted-CI statements describe those snapshots, not current main status.
+
 ## Test-first evidence
 
 - [red-cli.log](red-cli.log): copied LEA-7 transport CLI and TCP tests pass;
@@ -45,7 +73,7 @@ universal package. Reproduce after packaging with
 binaries use temporary directories and are not committed as evidence.
 Chunk timestamps remain transport elapsed times, not frame timing.
 
-## Deferred acceptance
+## Initial deferred acceptance (historical)
 
 - LEA-8: no physical console test performed; three observed controlled reconnect
   pairs and attributable enumeration are still required.
@@ -89,7 +117,7 @@ identify the exact snapshot reviewed and retain the hardware/hosted-CI gates.
 
 ## Release candidate QA after cycle 3
 
-[release-qa.log](release-qa.log) is the current parent verification: **46 tests
+[release-qa.log](release-qa.log) records the historical parent verification: **46 tests
 pass**, **90.98% source-line coverage**, formatting, Clippy, workflow/shell lint,
 fresh universal packaging, verified archive/internal checksums and architecture
 slices, and actual native ARM extracted-package TCP smoke. Real 60-frame H.264
@@ -123,7 +151,7 @@ projector gates remain separately pending as requested.
 ## Hosted CI verification
 
 User authorized publication; [PR #2](https://github.com/Kaungkhant97/switchbridge/pull/2)
-is open. [Run 43141901934](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934)
+was open at this hosted-verification snapshot and is now merged. [Run 43141901934](https://github.com/Kaungkhant97/switchbridge/actions/runs/43141901934)
 passed all five jobs at exact source `ce8aeac`: ARM and Intel checks, universal
 package, extracted-package smoke on ARM and Intel. [Hosted QA](hosted-ci.md)
 records actual artifact ID, expiry, ZIP/archive/executable hashes and downloaded
@@ -138,9 +166,10 @@ The [consolidated roadmap](../../docs/superpowers/plans/2026-11-12-switchbridge-
 links the four ticket-owner plans and architecture pair's reviewed plan. The
 [import manifest](parallel-planning.json) records exact reviewed document hashes
 and ownership. Primary-source [C4/data-flow research](../../docs/research/2026-11-12-c4-dataflow-practices.md)
-includes the independent review and corrections. These are planning artifacts;
-final architecture views wait for actual merged main. Hardware observations and
-release policy remain pending.
+includes the independent review and corrections. These remain planning artifacts;
+final architecture views are now available in
+the [architecture guide](../../docs/architecture/README.md) after merged main.
+Hardware observations and release policy remain pending.
 
 
 Practical follow-up records: [LEA-7 closeout draft](lea7-closeout-draft.md),
