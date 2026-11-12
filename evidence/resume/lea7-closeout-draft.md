@@ -42,3 +42,14 @@ Archive/internal checksums, executable mode 0755 and ARM64/x86_64 slices were ve
 **Read sources:** coordinator consolidated roadmap and imported LEA-7 plan, `parallel-planning.json`, `cicd-assessment.md`, evidence README/PR draft/review log, metadata, both hosted reports; prior direct framing/transport/main/test inspection. Temporary Linear JSON is draft provenance only; the canonical ticket and acceptance table above are the durable contract.
 
 **Review-ready dependency:** coordinator evidence publication under existing authority; fresh read-only PR readiness inspection before any separately authorized merge; explicit authorization before Linear changes. Only this draft was written during this audit; other worktrees and agents were preserved.
+
+
+## Publication update — 2026-11-12
+
+The unpushed-evidence observations above describe the earlier audit snapshot.
+The bundle was subsequently published in commit `9113cd17ca892f9401a90f2f2fcc5bb4a96b4738`
+on PR #2. Run 43164099151 passed all five jobs at that exact head. See
+[latest CI status](latest-ci-status.md) for current-run metadata, distinct from
+the older downloaded artifact proof. The later projector-template privacy
+correction is documented in [physical-template QA](physical-template-qa.md).
+Actual merge and Linear completion remain unperformed.

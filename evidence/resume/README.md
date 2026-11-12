@@ -149,3 +149,17 @@ Practical follow-up records: [LEA-7 closeout draft](lea7-closeout-draft.md),
 [blank projector record](../../docs/projector-trial-record-template.md).
 Their import hashes are in [acceptance-handoff.json](acceptance-handoff.json).
 Templates contain no physical observations; closeout text has not been posted.
+
+## Published handoff follow-up
+
+[Latest CI status](latest-ci-status.md) records all five successful jobs at
+`9113cd1` in run 43164099151 and its distinct artifact metadata. The older
+`ce8aeac` artifact retains the separately downloaded/runtime-verified proof;
+no local re-execution of the new artifact is claimed. Frozen verification
+metadata's pending hosted items are historical and superseded by these records.
+
+[Independent Claude handoff review](../../docs/research/2026-11-12-published-handoff-review.md)
+checks the published planning/evidence snapshot. [Physical-template QA](physical-template-qa.md)
+identified a Medium private-staging gap in the projector template, now corrected
+and independently re-reviewed on the exact recorded SHA256. No hardware test or
+merge was performed. The corrected template retains blank acceptance fields.

@@ -4,7 +4,7 @@
     {
       "owner_worktree": "plan-lea7",
       "path": "evidence/resume/lea7-closeout-draft.md",
-      "sha256": "a2d19ac4846f176083ca8ce41ff6550a94f44a56de06694d410638a93316065f"
+      "sha256": "4ee98bfa3eb515297425427fcf237c7cbf5092ed89c0c556f36149ce50a60dfe"
     },
     {
       "owner_worktree": "plan-lea9",
@@ -19,7 +19,11 @@
     {
       "owner_worktree": "resume-cicd",
       "path": "docs/projector-trial-record-template.md",
-      "sha256": "3cbccdb6f1c2b775c37aae13c5b7eabc3e8f75df46abc9ff3352316ec10f7621"
+      "sha256": "00cb8edd66d52b508a5a9e2292772a654bc01f9760209388aad658ecc5370061"
     }
-  ]
+  ],
+  "supersedes": {
+    "commit": "9113cd17ca892f9401a90f2f2fcc5bb4a96b4738",
+    "reason": "Independent QA required private projector evidence staging and explicit privacy-reviewed handoff; correction re-reviewed PASS."
+  }
 }

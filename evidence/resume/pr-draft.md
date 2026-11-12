@@ -63,3 +63,8 @@ linked from `docs/superpowers/plans/2026-11-12-switchbridge-parallel-work.md`.
 The architecture pair's primary-source research and exact import hashes are
 included. This adds planning/evidence only; physical acceptance, actual merge,
 final architecture authoring and optional release choice remain separate gates.
+
+The planning handoff passed fresh [CI at 9113cd1](https://github.com/Kaungkhant97/switchbridge/actions/runs/43164099151).
+Its artifact metadata is recorded separately from the older downloaded/runtime-verified
+artifact. Independent template QA found and resolved a projector private-staging
+omission; the corrected template and exact-byte re-review are included.
