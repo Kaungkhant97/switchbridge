@@ -2,7 +2,7 @@
   "captured_at_utc": "2026-11-12T01:51:05.496934+00:00",
   "source_snapshot_commit": "d927173a9c76a381e2141b5ab6285f663653632c",
   "branch": "feat/resume-integration",
-  "provenance": "Source bytes compiled/tested in final-qa.log are frozen in this commit; capture verifies each selected file against its committed Git blob. This manifest is committed separately and excludes itself to avoid circular hashes.",
+  "provenance": "Source bytes compiled/tested in release-qa.log are frozen in this commit; capture verifies each selected file against its committed Git blob. This manifest is committed separately and excludes itself to avoid circular hashes.",
   "environment": {
     "macos": "26.5.1",
     "macos_build": "25F80",

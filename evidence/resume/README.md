@@ -82,8 +82,9 @@ approval. [CI reference checks](ci-reference-check.md) validate official action
 commit references and runner labels without claiming a hosted run.
 
 Frozen revision, executable/archive/source hashes, UTC timestamp, and tool
-versions will be stored in `verification-metadata.json`. Final reviewer results
-and the convergence verdict will be indexed in `review-log.md`. Those files
+versions are stored in [verification-metadata.json](verification-metadata.json).
+Final reviewer results and the local convergence verdict are indexed in
+[review-log.md](review-log.md). Those files
 identify the exact snapshot reviewed and retain the hardware/hosted-CI gates.
 
 ## Release candidate QA after cycle 3
@@ -102,5 +103,19 @@ label fixtures are synthetic, not observed legacy-profiler output. The
 [second Claude review](claude-round2.md) motivated these changes. The
 [previous clean Codex review](codex-round2.json) applies to snapshot `948a5cc`,
 not these subsequent changes. The current frozen metadata and final two-reviewer
-verdict will supersede those earlier snapshot results. Native Intel, hosted CI,
+verdict supersede those earlier snapshot results. Native Intel, hosted CI,
 console reconnect/live-frame, and projector acceptance remain pending.
+
+## Reviewable handoff and remaining gate
+
+Final [Codex](codex-final.json) and [Claude](claude-final.json) reviews agree
+there are no medium-or-higher findings on source snapshot `d927173`, reviewed
+at `2db17bd`. Low/speculative observations and all execution limitations are
+retained. The later merge of already-landed LEA-9 research preserves every
+reviewed source/doc/helper hash; historical reports are not new approvals.
+
+The [PR draft](pr-draft.md) is prepared for publication after explicit approval.
+Hosted ARM/Intel CI, native Intel execution and a downloadable GitHub artifact
+link remain unverified. The full goal has not been declared achieved while
+that remote validation remains. Console reconnect/live-frame and physical
+projector gates remain separately pending as requested.

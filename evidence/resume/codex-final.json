@@ -1,0 +1,103 @@
+{
+  "snapshot": "2db17bddf3b76ffb57184ad9d842f219fb96ab99",
+  "source_snapshot": "d927173a9c76a381e2141b5ab6285f663653632c",
+  "base": "93e61ea98590b7251ae9475ae7556d3456e01e6e",
+  "captured_at_utc": "2026-11-12T01:52:31.573868+00:00",
+  "findings": [],
+  "verdict": {
+    "clears_bar": true,
+    "basis": "No confirmed remaining critical/high or actionable medium/low findings in authorized local integration scope. Original three USB findings remain resolved. Cycle 3 source and tests address qualified labels, colon-bearing headings, original-error preservation and optimized-Python verifier checks without a reproduced regression. This does not certify deferred physical or remote acceptance."
+  },
+  "reviewed_changes": [
+    {
+      "area": "USB label recognition",
+      "verified_against": "Read actual collect_private_values/sensitive_key/malformed_private_field. Case-insensitive normalized whitespace, UUID/UDID suffix and Serial Number phrase policies agree with docs. New unit regression covers qualified and malformed/empty/multiline forms; independent CLI Volume UUID fixture redacts QUALIFIED-SECRET. Fixtures are not evidence a real profiler emitted these labels."
+    },
+    {
+      "area": "Whole-heading privacy",
+      "verified_against": "Actual replacement scans non-private colon-terminated headings as whole lines while preserving canonical VID/PID and recognized sensitive labels. Unit file-write/read test and both-direction diff regressions pass. Independent CLI colon-bearing serial repetition absent in both directions."
+    },
+    {
+      "area": "Prior findings",
+      "verified_against": "Independently reran original SECRET42 cross-input reproduction in both directions, serial 0 exact VID/PID preservation, and USB Serial heading with ABC123. All pass. Prior union, short-token/Unicode, long substring, marker/overlap, malformed field and no-overwrite regressions remain in passing 25-test USB unit suite."
+    },
+    {
+      "area": "Receive cleanup",
+      "verified_against": "Read actual main.rs: failed removal emits cleanup diagnostic and original result is returned. Read actual TCP regression: unlinks open output, sends full invalid header, bounded wait, checks both cleanup failure and invalid SWB1 header. Reverting fix would leave only cleanup ENOENT and fail both stderr assertions. Not independently executed because known bind restriction; hash-verified release QA records it passing."
+    },
+    {
+      "area": "Synthetic verifier",
+      "verified_against": "Read actual verifier: receiver status, matching hashes and 60 frames use explicit RuntimeError branches. Independent AST check finds no assert and four raises including readiness; source compiles with optimize=2. Parent release QA records real normal and python -O runs. No socket run attempted here."
+    },
+    {
+      "area": "Scope/privacy/docs/CI contract",
+      "verified_against": "Read review3-report.md and precise USB policy. Documented short-token ambiguity, structural/private label and canonical VID/PID preservation, conservative heading rejection and human review limits remain explicit. No blanket sanitization guarantee or hardware-label emission claim inferred. Framing/transport/CLI wiring/CI/package source outside the reviewed changes remains unchanged from prior inspected snapshot and hashes match. Bounded SWB1, numeric loopback restrictions, chunk timing, no-overwrite creation, universal archive/checksum and native ARM/Intel workflow configuration remain intact. No hosted/native Intel/projector or direct USB gameplay success claimed."
+    }
+  ],
+  "checks": [
+    {
+      "command": "git rev-parse HEAD; git diff d927173a9c76a381e2141b5ab6285f663653632c HEAD --stat",
+      "result": "Requested exact snapshot confirmed. Final commit changes verification-metadata.json only."
+    },
+    {
+      "command": "Independent Python SHA256 and git show comparisons",
+      "result": "All 20 sources_sha256 entries match actual files and source-commit Git blobs. release-qa.log hash matches 2666030534ece8d0981ed52d1e88fc1b79baffc4e63ba01ee8b470dd96fd8fb2."
+    },
+    {
+      "command": "Read-only sibling resume-integration/dist archive verification; executable copied only to owned target/review-scratch/cycle3-extracted",
+      "result": "Actual archive SHA256 8361c0da87bb964cdaaf129c5914ff89c87601314e928cd224a3367907f4780f; executable SHA256 960305e1eda8aec168f53ed9557776b53d7ae411ab8c490f426e12fb5bfd8122. Both match manifest. Exact two-member archive, internal checksum and 0755 mode verify. lipo verifies arm64/x86_64 and extracted native ARM --help succeeds with all four commands."
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo test --locked --lib --test cli --test framing --test transport --test usb_cli",
+      "exit_code": 0,
+      "result": "43 independently passing tests: 25 USB unit, 2 CLI, 7 framing, 6 transport, 3 USB CLI.",
+      "log": "/tmp/swb-cycle3-tests.log"
+    },
+    {
+      "command": "cargo fmt --check",
+      "exit_code": 0,
+      "log": "/tmp/swb-cycle3-fmt.log"
+    },
+    {
+      "command": "CARGO_NET_OFFLINE=true cargo clippy --locked --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/tmp/swb-cycle3-clippy.log"
+    },
+    {
+      "command": "actionlint",
+      "exit_code": 0,
+      "log": "/tmp/swb-cycle3-actionlint.log"
+    },
+    {
+      "command": "shellcheck scripts/package-macos.sh",
+      "exit_code": 0,
+      "log": "/tmp/swb-cycle3-shellcheck.log"
+    },
+    {
+      "command": "Independent CLI fixture reproductions against rebuilt current binary",
+      "result": "All 7 cases pass: original cross-input leak both directions, serial 0 VID/PID preservation, USB Serial heading, qualified UUID, colon-bearing serial heading both directions."
+    },
+    {
+      "command": "Scratch mental revert: 948a5cc USB implementation plus actual final 25 USB tests compiled by rustc --test",
+      "result": "21 pass and exactly four new cycle3 tests fail: qualified labels, actual snapshot write/read colon heading, and both colon-bearing diff directions. These are externally observable behavior checks rather than mirrored implementation assertions. Production files untouched. Prior cycle isolated union mutation had already demonstrated all four cross-input regressions fail without union.",
+      "log": "/tmp/swb-cycle3-revert.log"
+    },
+    {
+      "command": "Independent verifier AST and optimized compilation",
+      "result": "No asserts; four explicit raises; compile optimize=2 succeeds. Functional socket execution intentionally left to parent evidence."
+    },
+    {
+      "command": "Read hash-verified evidence/resume/release-qa.log",
+      "result": "Parent evidence records 46 passing tests, 90.98% source lines, current universal package/slices/checksums, actual native ARM packaged TCP sentinel, host collector/self-diff, and normal plus optimized real FFmpeg 85967-byte/60-frame H.264 byte-identical TCP runs. These are parent executions, distinguished from independent checks above."
+    }
+  ],
+  "limitations": [
+    "Known sandbox EPERM for loopback binds and hc core lock from first pass; no denied operations retried. Canonical all-targets runtime tests, the three TCP tests and packaged TCP smoke are not independently rerun here. All-targets clippy is independently passing.",
+    "Parent release QA is hash-verified execution evidence, not a substitute for independent feasible checks. Coverage was not independently rerun because the canonical invocation includes denied TCP tests.",
+    "Unchanged framing/transport source was independently tested with real FFmpeg in-memory SWB1 roundtrip during initial review; actual final TCP and normal/optimized decode proofs are attributed to parent logs.",
+    "No observed legacy-profiler-label emission premise inferred from synthetic fixtures. No three physical console reconnect pairs, attributable real USB gameplay frames, native Intel execution, passing hosted Actions run or physical projector observation independently observed. These remain pending; direct USB live gameplay remains BLOCKED.",
+    "No network requests, subagents, source edits, commits, pushes, remote writes or physical acceptance actions. Sibling archive read only; no other worktree modified. Updated only owned codex-final.json and permitted ignored/local scratch.",
+    "Explicitly documented embedded short identifiers, unknown/absent identifiers, canonical VID/PID coincidences and conservative private-pattern heading rejection remain policy tradeoffs requiring human review before publication.",
+    "Available for further frozen-snapshot review."
+  ]
+}
