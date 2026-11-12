@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "USB inventories \u00b7 snapshot and diff",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      560
+    ]
+  },
+  "stages": [
+    {
+      "label": "macOS programs"
+    },
+    {
+      "label": "Snapshot invocation"
+    },
+    {
+      "label": "Local evidence files"
+    },
+    {
+      "label": "Diff invocation"
+    },
+    {
+      "label": "Local text output"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "os-tools",
+      "type": "external",
+      "label": "macOS tools",
+      "sublabel": "External OS programs",
+      "stage": 0,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "snapshot",
+      "type": "frontend",
+      "label": "usb-snapshot PATH",
+      "sublabel": "Rust CLI \u00b7 redaction",
+      "stage": 1,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "snapshots",
+      "type": "external",
+      "label": "BEFORE / AFTER",
+      "sublabel": "File stores \u00b7 paths",
+      "stage": 2,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "diff",
+      "type": "frontend",
+      "label": "usb-diff",
+      "sublabel": "Rust CLI \u00b7 diff",
+      "stage": 3,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110,
+      "tag": "BEFORE AFTER"
+    },
+    {
+      "id": "stdout",
+      "type": "external",
+      "label": "Redacted diff",
+      "sublabel": "stdout \u00b7 review manually",
+      "stage": 4,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    }
+  ],
+  "flows": [
+    {
+      "id": "collect-inventory",
+      "from": "os-tools",
+      "to": "snapshot",
+      "label": "1 \u00b7 Inventory + metadata",
+      "labelDy": -25
+    },
+    {
+      "id": "save-snapshot",
+      "from": "snapshot",
+      "to": "snapshots",
+      "label": "2 \u00b7 Redacted text",
+      "labelDy": -25
+    },
+    {
+      "id": "load-inventories",
+      "from": "snapshots",
+      "to": "diff",
+      "label": "3 \u00b7 Two inventories",
+      "labelDy": -25
+    },
+    {
+      "id": "emit-diff",
+      "from": "diff",
+      "to": "stdout",
+      "label": "4 \u00b7 Redacted diff",
+      "labelDy": -25
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Two separate command scenarios",
+      "items": [
+        "Snapshot twice around controlled human reconnects.",
+        "Diff reads both files; stdout becomes a file only if redirected."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Privacy is a transformation",
+      "items": [
+        "Supported private fields redacted; unknown identifiers may remain.",
+        "No automatic raw store or upload. Inspect before sharing."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Failure and scope",
+      "items": [
+        "Invalid / oversized input or malformed private fields fail.",
+        "Inventory is not endpoint classification or video evidence."
+      ]
+    }
+  ]
+}

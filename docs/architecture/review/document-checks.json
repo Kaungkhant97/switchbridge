@@ -1,0 +1,33 @@
+{
+  "source_revision": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab",
+  "mermaid_json_edge_parity": [
+    {
+      "view": "c4-container",
+      "edge_count": 2,
+      "exact_node_ids_and_edge_labels": true
+    },
+    {
+      "view": "c4-context",
+      "edge_count": 2,
+      "exact_node_ids_and_edge_labels": true
+    },
+    {
+      "view": "dataflow-prerecorded-loopback",
+      "edge_count": 4,
+      "exact_node_ids_and_edge_labels": true
+    },
+    {
+      "view": "dataflow-usb-evidence",
+      "edge_count": 4,
+      "exact_node_ids_and_edge_labels": true
+    },
+    {
+      "view": "workflow-ci-artifacts",
+      "edge_count": 4,
+      "exact_node_ids_and_edge_labels": true
+    }
+  ],
+  "relative_links": "pass: all referenced local files now exist",
+  "runtime_tests_run": false,
+  "peer_and_qa_reports_imported": true
+}

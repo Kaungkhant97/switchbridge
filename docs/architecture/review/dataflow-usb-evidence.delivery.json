@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/dataflow-usb-evidence.json",
+  "output": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/dataflow-usb-evidence.html",
+  "specification": {
+    "sha256": "c4e1ebc26a0f00954bf88c5e9fdb84fe6db1e503e2d987579aada686abd71482",
+    "bytes": 2993
+  },
+  "artifact": {
+    "sha256": "cd933dc51d5c7478270c276558ec113b8a0398e003dee1fe96147fad17f00d77",
+    "bytes": 705827
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/c4-context.json",
+  "output": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/c4-context.html",
+  "specification": {
+    "sha256": "b46649cdcff1aa7d017360178d37b31c2c5bd59e98f72b937d10685be14ff8c2",
+    "bytes": 3217
+  },
+  "artifact": {
+    "sha256": "c3f36a3832a1079ad8c59475e60a46e2dc58dd5d3d2ee8b9cf30f082bffdb2fd",
+    "bytes": 702736
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence": {
+    "verified": true,
+    "repository": "https://github.com/Kaungkhant97/switchbridge",
+    "revision": "e1b81f7490ea4f5893ec8fe8b276d76ff92ed2ab",
+    "references": 2
+  }
+}

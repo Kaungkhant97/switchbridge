@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/dataflow-prerecorded-loopback.json",
+  "output": "/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/architecture-merged-e1b81f7/docs/architecture/diagrams/dataflow-prerecorded-loopback.html",
+  "specification": {
+    "sha256": "8f0984ef793d6107c6741595f3ddd3220aeeb1f2bacf5650e237ce5825442fda",
+    "bytes": 3128
+  },
+  "artifact": {
+    "sha256": "bdfff237555688d58d1d263e8c0a12ddd6892e303e18c78b7d10489c68bb52e6",
+    "bytes": 705812
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

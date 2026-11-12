@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "macOS CI \u00b7 artifact delivery",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "actions",
+      "label": "GitHub Actions \u00b7 workflow jobs"
+    },
+    {
+      "id": "consumer",
+      "label": "Contributor \u00b7 manual download"
+    }
+  ],
+  "mainPath": [
+    "source",
+    "checks",
+    "package",
+    "smoke",
+    "select"
+  ],
+  "nodes": [
+    {
+      "id": "source",
+      "lane": "actions",
+      "col": 0,
+      "type": "external",
+      "label": "Source SHA",
+      "sublabel": "PR head or event SHA",
+      "width": 150
+    },
+    {
+      "id": "checks",
+      "lane": "actions",
+      "col": 1,
+      "type": "external",
+      "label": "Check \u00d72",
+      "sublabel": "ARM + Intel",
+      "tag": "fmt \u00b7 tests \u00b7 clippy",
+      "width": 150
+    },
+    {
+      "id": "package",
+      "lane": "actions",
+      "col": 2,
+      "type": "external",
+      "label": "Universal package",
+      "sublabel": "Build both targets + lipo",
+      "tag": "Archive + hashes + upload",
+      "width": 150
+    },
+    {
+      "id": "smoke",
+      "lane": "actions",
+      "col": 3,
+      "type": "external",
+      "label": "Packaged smoke \u00d72",
+      "sublabel": "Download; native ARM + Intel",
+      "width": 150
+    },
+    {
+      "id": "select",
+      "lane": "consumer",
+      "col": 4,
+      "type": "external",
+      "label": "Select passing run",
+      "sublabel": "Download exact SHA artifact",
+      "width": 150
+    }
+  ],
+  "edges": [
+    {
+      "id": "source-checks",
+      "from": "source",
+      "to": "checks",
+      "label": "Checkout source"
+    },
+    {
+      "id": "checks-package",
+      "from": "checks",
+      "to": "package",
+      "label": "Both pass"
+    },
+    {
+      "id": "package-smoke",
+      "from": "package",
+      "to": "smoke",
+      "label": "Uploaded artifact"
+    },
+    {
+      "id": "smoke-select",
+      "from": "smoke",
+      "to": "select",
+      "label": "Entire run succeeds"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Lineage",
+      "items": [
+        "SOURCE_SHA = PR head SHA or event SHA.",
+        "Build/check/smoke each check out that same source."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Artifact before smoke",
+      "items": [
+        "Upload happens before smoke; artifact presence is not success.",
+        "Dependent jobs stop on failure. Retention: 14 days."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Development delivery",
+      "items": [
+        "No Release, signing or notarization step.",
+        "Checksums do not prove signer identity or physical playback."
+      ]
+    }
+  ]
+}

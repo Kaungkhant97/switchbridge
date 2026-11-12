@@ -1,0 +1,53 @@
+{
+  "cli_version": "12.2.0",
+  "mermaid_version": "12.3.0",
+  "browser": "Google Chrome",
+  "inputs": "fenced Mermaid extracted from exact Markdown; scratch .mmd not delivered",
+  "results": [
+    {
+      "view": "c4-container",
+      "exit_code": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "mermaid_block_sha256": "95d4941697a9fffbc645f8738ffaef5de73df0be98d87e42296a89dee350dc39",
+      "svg": "docs/architecture/diagrams/c4-container.portable.svg",
+      "svg_sha256": "d1212745334e60accae27f7123f53dea74b5d975b27004e6202b7054c8a8ffdf"
+    },
+    {
+      "view": "c4-context",
+      "exit_code": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "mermaid_block_sha256": "9c9eabb41c6a3e6f1b501456775f2f5ba4e948459f34486f876afcb3a41d7c69",
+      "svg": "docs/architecture/diagrams/c4-context.portable.svg",
+      "svg_sha256": "f8b06d55c54d93da87d31f9f24e21d879004b0c0cc688012e2d1b2f72a85fee8"
+    },
+    {
+      "view": "dataflow-prerecorded-loopback",
+      "exit_code": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "mermaid_block_sha256": "befe6d3504d3d2a3ce1f16ef8c93723b232f776dc66e36a7098e59a6d7425c3e",
+      "svg": "docs/architecture/diagrams/dataflow-prerecorded-loopback.portable.svg",
+      "svg_sha256": "16a50ba95c08f6a780f837f9367b80b7915d00f59d9657d6c12fce571e623dfc"
+    },
+    {
+      "view": "dataflow-usb-evidence",
+      "exit_code": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "mermaid_block_sha256": "0086bddc243b14b837c45052e59cd262720854127b9bb7d5dce196a20625379a",
+      "svg": "docs/architecture/diagrams/dataflow-usb-evidence.portable.svg",
+      "svg_sha256": "21aa1961ad6a7da77eabb06980730a38ba44859b7345a454f4cbe00c9e6755fd"
+    },
+    {
+      "view": "workflow-ci-artifacts",
+      "exit_code": 0,
+      "stdout": "Generating single mermaid chart\n",
+      "stderr": "",
+      "mermaid_block_sha256": "98c9c1f65200af831eb964edef0702a8b507e4791aea2c2d241d975e53f2de49",
+      "svg": "docs/architecture/diagrams/workflow-ci-artifacts.portable.svg",
+      "svg_sha256": "9d77b70a0fb1c69a30b56f2b5bb867436171dec82dbc4c147cf14a9e9b063d2e"
+    }
+  ]
+}

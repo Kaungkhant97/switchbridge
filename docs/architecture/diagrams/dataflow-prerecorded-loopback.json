@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Prerecorded H.264 \u00b7 local data flow",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "legend": {
+      "entries": {
+        "default": {
+          "label": "Numbered byte movement"
+        },
+        "emphasis": {
+          "label": "Local SWB1 / TCP"
+        }
+      }
+    }
+  },
+  "stages": [
+    {
+      "label": "Input file"
+    },
+    {
+      "label": "Sender process"
+    },
+    {
+      "label": "Receiver process"
+    },
+    {
+      "label": "Output file"
+    },
+    {
+      "label": "External playback"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "clip",
+      "type": "external",
+      "label": "INPUT.h264",
+      "sublabel": "File store \u00b7 Annex B",
+      "stage": 0,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "sender",
+      "type": "frontend",
+      "label": "send",
+      "sublabel": "Rust CLI \u00b7 sender",
+      "stage": 1,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "receiver",
+      "type": "frontend",
+      "label": "receive",
+      "sublabel": "Rust CLI \u00b7 receiver",
+      "stage": 2,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "output",
+      "type": "external",
+      "label": "OUTPUT.h264",
+      "sublabel": "File store \u00b7 new path",
+      "stage": 3,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    },
+    {
+      "id": "player",
+      "type": "external",
+      "label": "ffplay",
+      "sublabel": "External \u00b7 saved file",
+      "stage": 4,
+      "row": 0,
+      "width": 150,
+      "yOffset": 110
+    }
+  ],
+  "flows": [
+    {
+      "id": "read-clip",
+      "from": "clip",
+      "to": "sender",
+      "label": "1 \u00b7 Annex B bytes",
+      "labelDy": -25
+    },
+    {
+      "id": "tcp-chunks",
+      "from": "sender",
+      "to": "receiver",
+      "label": "2 \u00b7 SWB1 / TCP",
+      "variant": "emphasis",
+      "labelDy": -25
+    },
+    {
+      "id": "write-output",
+      "from": "receiver",
+      "to": "output",
+      "label": "3 \u00b7 Payload bytes",
+      "labelDy": -25
+    },
+    {
+      "id": "read-playback",
+      "from": "output",
+      "to": "player",
+      "label": "4 \u00b7 Completed file",
+      "labelDy": -25
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One application, two invocations",
+      "items": [
+        "Numeric loopback only; no remote stream endpoint.",
+        "Sender chunks \u226464 KiB; receiver payload limit 1 MiB."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Failure and completion contract",
+      "items": [
+        "Malformed streams fail; partial output cleanup is attempted.",
+        "No ACK, digest or end marker; terminal packet loss can escape detection."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Timing and evidence",
+      "items": [
+        "10s connect / connected I/O; accept has no timeout.",
+        "Chunk elapsed time is not frame timing. Console capture UNVERIFIED."
+      ]
+    }
+  ]
+}
