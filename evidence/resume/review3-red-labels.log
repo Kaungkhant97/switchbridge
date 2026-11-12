@@ -1,0 +1,24 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.89s
+     Running unittests src/lib.rs (target/debug/deps/switchbridge-f83fff01a7c88360)
+
+running 1 test
+test usb::tests::private_label_variants_redact_values_and_fail_closed ... FAILED
+
+failures:
+
+---- usb::tests::private_label_variants_redact_values_and_fail_closed stdout ----
+
+thread 'usb::tests::private_label_variants_redact_values_and_fail_closed' (3589281) panicked at src/usb.rs:458:13:
+assertion `left == right` failed
+  left: "Volume UUID: 1234-ABCD\n"
+ right: "Volume UUID: [REDACTED]\n"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    usb::tests::private_label_variants_redact_values_and_fail_closed
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`

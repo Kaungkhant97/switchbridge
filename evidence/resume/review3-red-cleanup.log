@@ -1,0 +1,23 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.78s
+     Running tests/network.rs (target/debug/deps/network-13e2ecfaeb4b09c2)
+
+running 1 test
+test original_protocol_error_survives_failed_partial_output_cleanup ... FAILED
+
+failures:
+
+---- original_protocol_error_survives_failed_partial_output_cleanup stdout ----
+
+thread 'original_protocol_error_survives_failed_partial_output_cleanup' (3591725) panicked at tests/network.rs:107:5:
+switchbridge: No such file or directory (os error 2)
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    original_protocol_error_survives_failed_partial_output_cleanup
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.42s
+
+error: test failed, to rerun pass `--test network`

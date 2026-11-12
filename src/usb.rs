@@ -105,7 +105,10 @@ fn replace_private_values(inventory: &str, private_values: &[&str]) -> String {
         .split_inclusive('\n')
         .map(|line| match line.split_once(':') {
             Some((key, _)) if matches!(key.trim(), "Vendor ID" | "Product ID") => line.to_owned(),
-            Some((key, value)) if !value.trim().is_empty() => {
+            Some((key, value))
+                if sensitive_key(key)
+                    || (!line.trim_end().ends_with(':') && !value.trim().is_empty()) =>
+            {
                 format!("{key}:{}", replace_private_tokens(value, private_values))
             }
             _ => replace_private_tokens(line, private_values),
@@ -164,17 +167,22 @@ const PRIVATE_LABELS: &[&str] = &[
 ];
 
 fn sensitive_key(key: &str) -> bool {
-    PRIVATE_LABELS.contains(&key.trim().to_ascii_lowercase().as_str())
+    let key = key
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .to_ascii_lowercase();
+    PRIVATE_LABELS.contains(&key.as_str())
+        || key.ends_with("uuid")
+        || key.ends_with("udid")
+        || key.contains("serial number")
 }
 
 fn malformed_private_field(line: &str) -> bool {
-    let line = line.trim().to_ascii_lowercase();
-    PRIVATE_LABELS.iter().any(|label| {
-        line == *label
-            || line
-                .strip_prefix(label)
-                .is_some_and(|rest| rest.starts_with(char::is_whitespace))
-    })
+    sensitive_key(line)
+        || line
+            .char_indices()
+            .any(|(offset, character)| character.is_whitespace() && sensitive_key(&line[..offset]))
 }
 
 fn inventory_diff(before: &str, after: &str) -> Result<String, Box<dyn Error>> {
@@ -444,6 +452,76 @@ mod tests {
     #[test]
     fn diff_redacts_embedded_values_known_only_to_after_inventory() {
         assert_cross_inventory_embedded_redaction(true);
+    }
+
+    #[test]
+    fn private_label_variants_redact_values_and_fail_closed() {
+        for label in [
+            "Volume UUID",
+            "Interface UDID",
+            "Qualified Serial Number (system)",
+            "  volume   uuid  ",
+        ] {
+            let raw = format!("{label}: 1234-ABCD\n");
+            assert_eq!(
+                redact_inventory(&raw).unwrap(),
+                format!("{label}: [REDACTED]\n")
+            );
+            for malformed in [
+                format!("{label}:\n"),
+                format!("{label} SECRET\n"),
+                format!("{label}: FIRST\n  SECOND\n"),
+            ] {
+                assert!(
+                    redact_inventory(&malformed).is_err(),
+                    "accepted {malformed:?}"
+                );
+                assert!(inventory_diff("USB:\n", &malformed).is_err());
+            }
+        }
+        let ordinary = "USB:\n  USB Serial:\n    Product ID: 0x7523\n";
+        assert_eq!(redact_inventory(ordinary).unwrap(), ordinary);
+    }
+
+    #[test]
+    fn colon_bearing_private_values_are_redacted_in_snapshot_headings() {
+        let directory = temp_dir();
+        let path = directory.join("snapshot.txt");
+        let raw = "USB:\n  Dev 00:11:22:33:44:55:\n    Serial Number: 00:11:22:33:44:55\n    Vendor ID: 0x057e\n    Product ID: 0x201d\n";
+        write_inventory(&path, raw).unwrap();
+        let clean = fs::read_to_string(&path).unwrap();
+        fs::remove_dir_all(directory).unwrap();
+        assert_eq!(
+            clean,
+            "USB:\n  Dev [REDACTED]:\n    Serial Number: [REDACTED]\n    Vendor ID: 0x057e\n    Product ID: 0x201d\n"
+        );
+        assert_eq!(
+            redact_inventory("Serial Number: 00:11:22:33:44:55:\n").unwrap(),
+            "Serial Number: [REDACTED]\n"
+        );
+    }
+
+    fn assert_colon_bearing_cross_inventory_redaction(reverse: bool) {
+        let identified = "USB:\n  Dev:\n    Serial Number: 00:11:22:33:44:55\n";
+        let repeated = "USB:\n  Dev 00:11:22:33:44:55:\n";
+        let (before, after) = if reverse {
+            (repeated, identified)
+        } else {
+            (identified, repeated)
+        };
+        let diff = inventory_diff(before, after).unwrap();
+        assert!(!diff.contains("00:11:22:33:44:55"), "{diff}");
+        assert!(diff.contains("Dev [REDACTED]:"));
+    }
+
+    #[test]
+    fn colon_bearing_private_values_known_only_before_are_redacted_in_diff() {
+        assert_colon_bearing_cross_inventory_redaction(false);
+    }
+
+    #[test]
+    fn colon_bearing_private_values_known_only_after_are_redacted_in_diff() {
+        assert_colon_bearing_cross_inventory_redaction(true);
     }
 
     #[test]

@@ -1,12 +1,12 @@
 use std::fs;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader, Read, Write};
 use std::net::{TcpListener, TcpStream};
-use std::process::{Child, Command, Stdio};
+use std::process::{Child, ChildStderr, Command, Stdio};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);
-struct Receiver(Child);
+struct Receiver(Child, Option<BufReader<ChildStderr>>);
 impl Drop for Receiver {
     fn drop(&mut self) {
         let _ = self.0.kill();
@@ -31,13 +31,15 @@ fn receiver() -> (Receiver, String, std::path::PathBuf) {
     let (tx, rx) = std::sync::mpsc::channel();
     std::thread::spawn(move || {
         let mut line = String::new();
-        let result = BufReader::new(stderr).read_line(&mut line);
-        let _ = tx.send((result, line));
+        let mut reader = BufReader::new(stderr);
+        let result = reader.read_line(&mut line);
+        let _ = tx.send((result, line, reader));
     });
-    let mut guard = Receiver(child);
-    let (result, line) = rx
+    let mut guard = Receiver(child, None);
+    let (result, line, reader) = rx
         .recv_timeout(Duration::from_secs(5))
         .expect("receiver startup timeout");
+    guard.1 = Some(reader);
     result.unwrap();
     assert!(line.starts_with("Listening on"), "{line}");
     // The guard kills a failed or stalled receiver when the test exits.
@@ -82,5 +84,27 @@ fn malformed_tcp_stream_fails_and_removes_partial_output() {
     socket.write_all(b"SWB").unwrap();
     drop(socket);
     assert!(!wait(&mut receiver));
+    assert!(!output.exists());
+}
+
+#[test]
+fn original_protocol_error_survives_failed_partial_output_cleanup() {
+    let (mut receiver, address, output) = receiver();
+    // The receiver still owns its open file; remove the directory entry so
+    // error cleanup deterministically encounters ENOENT after invalid input.
+    fs::remove_file(&output).unwrap();
+    let mut socket = TcpStream::connect(address).unwrap();
+    socket.write_all(&[0_u8; 24]).unwrap();
+    drop(socket);
+    assert!(!wait(&mut receiver));
+    let mut stderr = String::new();
+    receiver
+        .1
+        .as_mut()
+        .unwrap()
+        .read_to_string(&mut stderr)
+        .unwrap();
+    assert!(stderr.contains("invalid SWB1 header"), "{stderr}");
+    assert!(stderr.contains("cleanup failed"), "{stderr}");
     assert!(!output.exists());
 }

@@ -1,0 +1,8 @@
+synthetic.h264 SHA256 487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2
+received.h264  SHA256 487f583802823c66ba464d1a94067e7a77dd0abe037ec14be473dc8efd14b1b2
+Transported 85967 bytes via extracted universal executable
+codec_name=h264
+width=160
+height=90
+nb_read_frames=60
+PASS: synthetic 60-frame H.264 decoded after byte-identical loopback. No console or projector observation.

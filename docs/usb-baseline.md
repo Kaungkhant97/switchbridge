@@ -5,11 +5,16 @@ endpoint or prove Switch 2 capture. Snapshots preserve profiler inventory and
 Mac model/macOS metadata while replacing serial/UUID values, including repeated
 values in device names. Review each file before sharing it.
 
-Redaction recognizes the profiler's supported Serial Number/Serial, UUID/UDID,
-Device UUID/UDID, Hardware UUID, USB Serial Number, and Device Serial Number
-labels, case-insensitively. Ordinary device headings such as `USB Serial:` are
-accepted; empty or malformed actual private fields fail closed. Canonical
-`Vendor ID` and `Product ID` fields and structural property names are preserved.
+Redaction recognizes the supported Serial Number/Serial and UUID/UDID labels,
+plus normalized keys ending in `UUID`/`UDID` or containing `Serial Number`.
+Matching is case-insensitive and collapses whitespace. Synthetic regression
+fixtures include `Volume UUID`, `Interface UDID`, and qualified Serial Number
+labels; these fixtures are not claims of observed hardware output. Ordinary
+device headings such as `USB Serial:` are accepted; empty, malformed, or
+multiline actual private fields fail closed. Canonical `Vendor ID` and
+`Product ID` fields and recognized private-field labels are preserved. Other
+colon-terminated headings are redacted as whole lines, including identifiers
+containing colons; ordinary value lines retain their structural property names.
 Known private values of four or more characters are removed even when embedded
 in device names or ordinary values. Values of one to three characters are removed
 only as complete tokens, so a serial `0` does not corrupt hexadecimal IDs.
@@ -17,7 +22,9 @@ Adjacent letters, digits, `_`, or `-` make a short value part of a longer token.
 Diffing uses known private values from both inputs. Unknown field labels, values
 absent from private fields in both files, and embedded short values still need
 human review before sharing. This collector does not certify that a file is
-free of all identifying information.
+free of all identifying information. Coincidental matches can also hide unrelated
+data, such as a version fragment matching a short serial; inspect other fields
+before relying on them as evidence.
 
 On supported macOS versions, `system_profiler` uses either `SPUSBHostDataType`
 (newer systems) or `SPUSBDataType`. The collector detects the available type,

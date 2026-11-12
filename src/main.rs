@@ -58,8 +58,10 @@ fn receive_file(listener: TcpListener, path: &Path) -> io::Result<()> {
         receive(&mut socket, &mut output)?;
         output.flush()
     })();
-    if result.is_err() {
-        fs::remove_file(path)?;
+    if result.is_err()
+        && let Err(cleanup_error) = fs::remove_file(path)
+    {
+        eprintln!("switchbridge: cleanup failed: {cleanup_error}");
     }
     result
 }

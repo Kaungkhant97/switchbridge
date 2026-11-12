@@ -60,7 +60,7 @@ Chunk timestamps remain transport elapsed times, not frame timing.
 The fast-context search attempt failed due to an unavailable Windsurf API key;
 direct local inspection was used without changing credentials.
 
-## Current reviewed-fix QA
+## Review cycle 2 QA (`ab2035e`)
 
 Parent reran the full canonical suite and package checks after the USB fixes:
 [final-qa.log](final-qa.log) records **41 passing tests**, **90.09% source-line
@@ -85,3 +85,22 @@ Frozen revision, executable/archive/source hashes, UTC timestamp, and tool
 versions will be stored in `verification-metadata.json`. Final reviewer results
 and the convergence verdict will be indexed in `review-log.md`. Those files
 identify the exact snapshot reviewed and retain the hardware/hosted-CI gates.
+
+## Release candidate QA after cycle 3
+
+[release-qa.log](release-qa.log) is the current parent verification: **46 tests
+pass**, **90.98% source-line coverage**, formatting, Clippy, workflow/shell lint,
+fresh universal packaging, verified archive/internal checksums and architecture
+slices, and actual native ARM extracted-package TCP smoke. Real 60-frame H.264
+transport/decode passes normally and under `python3 -O`; its checks now use
+explicit exceptions. The host USB collector and self-diff also pass; raw host
+snapshots remain ignored and are not controlled console experiments.
+
+[Cycle 3](review3-report.md) preserves failing-then-passing UUID-label,
+colon-bearing heading, and receive-cleanup regressions. Its generalized private
+label fixtures are synthetic, not observed legacy-profiler output. The
+[second Claude review](claude-round2.md) motivated these changes. The
+[previous clean Codex review](codex-round2.json) applies to snapshot `948a5cc`,
+not these subsequent changes. The current frozen metadata and final two-reviewer
+verdict will supersede those earlier snapshot results. Native Intel, hosted CI,
+console reconnect/live-frame, and projector acceptance remain pending.
