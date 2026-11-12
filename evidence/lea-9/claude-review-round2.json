@@ -1,0 +1,42 @@
+{
+  "reviewer": "Claude CLI",
+  "model": "claude-opus-5-5",
+  "session_id": "185e211a-26e9-4069-852e-ffcf5eaee168",
+  "exit_code": 0,
+  "report_sha256": "d21d96de5ee99250557fa9a510314e2c3b6a31c6c5ff6507cadd81bb6afabd99",
+  "review": {
+    "findings": [
+      {
+        "severity": "low",
+        "location": "Falsifiable next experiment and pass gate, step 4 (PASS)",
+        "claim": "The PASS sentence requires repeatable real gameplay frames attributed to console USB traffic, but it does not restate the scope constraints: an unmodified console and firmware, a direct console USB port, no dock, and no capture card. Those constraints appear in Scope and are implied by step 3. A reader who checks only the gate could still accept a dock-mediated or modified setup.",
+        "suggested_fix": "Add to step 4: 'on an unmodified console/firmware, via a direct console USB-C port (not dock ports), with no dock, capture card, or modification in the path.'"
+      },
+      {
+        "severity": "low",
+        "location": "Step 3, attribution evidence",
+        "claim": "Step 3 asks to retain endpoint traffic, received bytes, decoder output, and hashes, but it does not require that the decoded frames be shown to derive from the captured endpoint bytes. Without that chain, a decoder fed from another source (for example a network stream or screen recording) could pass the visual checks. The disconnected control mitigates this but does not exclude a parallel network path.",
+        "suggested_fix": "Require a hash chain from the raw endpoint transfer capture, through the reassembled bitstream, to the decoder input. Add a control with console and Mac networking disabled, or GameChat/online features off, to exclude network-origin frames."
+      },
+      {
+        "severity": "low",
+        "location": "Step 1, 'Include HOME and Nintendo's documented Copy to PC mode'",
+        "claim": "'HOME' is shorthand and does not say whether it means the HOME Menu state. The enumeration states also do not include an in-game state, which is the state most relevant to a live-output candidate before step 3.",
+        "suggested_fix": "Write 'HOME Menu (idle)', and add 'in-game (gameplay running)' as a third separately labelled enumeration state."
+      },
+      {
+        "severity": "info",
+        "location": "Narrow alternatives, Recorded-media workflow",
+        "claim": "The report correctly avoids claiming macOS MTP support and defers Mac compatibility to separate validation. This is consistent with S1, which only states that the computer must support MTP. No change is needed; noted as a correct evidence limit.",
+        "suggested_fix": "None required. Optionally note that the MTP host software/version used on the Mac must be recorded as part of that validation."
+      }
+    ],
+    "verdict": {
+      "clears_bar": true,
+      "critical_count": 0,
+      "high_count": 0,
+      "summary": "The report meets LEA-9 acceptance as an honest BLOCKED/NO-GO decision. It claims no PASS, invents no descriptors or identifiers, and correctly treats MTP album transfer as file transfer rather than live output. It describes GameChat as a network feature, the camera as an input to the console, and TV mode as outside the no-dock constraint. It explicitly states that missing documentation does not prove impossibility, and it limits negative results to the tested states and firmware. The tightened gate has three reconnect sessions, scripted visible changes within logged windows, disconnected and idle controls with the idle-screen caveat, and a ban on synthetic, saved, or GameChat substitutes. This gate is falsifiable and sufficient for attributing frames to USB traffic. The alternatives are feasible and carry appropriate caveats about output protection and lack of Nintendo certification. The remaining findings are low-severity clarifications: restate the scope in the PASS gate, add hash-chain linkage and a network-off control, and clarify the state labels."
+    },
+    "source_verification_limitation": "This review did not fetch or inspect S1–S4 or any URL; no tools were used. Source-to-claim checks rely on the supplied verification context: the author fetched the cited pages on 2026-11-12, and a separate researcher corroborated the UK transfer page and the GameChat FAQ/tech-spec primary sources. On that basis, the report's summaries of S1 (MTP, data cable, Copy to PC, selected captures, dock ports excluded), S2 (online screen sharing, Internet required), S3 (camera connects to the console for video chat/game features), and S4 (dock HDMI to TV/monitor) are consistent with the supplied evidence. I have not independently confirmed page content, line numbers, section names, or URL stability. The sources are not labelled unchecked, since they were checked by the author and corroborated per the supplied context."
+  }
+}
