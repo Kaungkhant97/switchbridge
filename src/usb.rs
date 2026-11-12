@@ -1,0 +1,331 @@
+//! Redacted macOS USB evidence collection. Enumeration does not verify video.
+
+use std::error::Error;
+use std::fs::{self, File, OpenOptions};
+use std::io::{Read, Write};
+use std::path::Path;
+use std::process::Command;
+
+const MAX_INVENTORY_BYTES: u64 = 16 * 1024 * 1024;
+
+pub fn run(args: &[String]) -> Result<(), Box<dyn Error>> {
+    match args {
+        [command, path] if command == "usb-snapshot" => {
+            let inventory = collect_inventory()?;
+            write_inventory(Path::new(path), &inventory)?;
+            println!("Saved redacted USB inventory. Enumeration and video remain UNVERIFIED.");
+            Ok(())
+        }
+        [command, before, after] if command == "usb-diff" => {
+            let before = read_inventory(Path::new(before))?;
+            let after = read_inventory(Path::new(after))?;
+            print!("{}", inventory_diff(&before, &after)?);
+            Ok(())
+        }
+        _ => Err("usage: switchbridge usb-snapshot PATH | usb-diff BEFORE AFTER".into()),
+    }
+}
+
+fn command_text(program: &str, args: &[&str]) -> Result<String, Box<dyn Error>> {
+    let output = Command::new(program)
+        .args(args)
+        .env("LC_ALL", "C")
+        .env("LANG", "C")
+        .output()?;
+    if !output.status.success() {
+        return Err(format!("{program} failed with {}", output.status).into());
+    }
+    if output.stdout.len() as u64 > MAX_INVENTORY_BYTES {
+        return Err("USB inventory exceeds 16 MiB limit".into());
+    }
+    let text = String::from_utf8(output.stdout)?;
+    if text.trim().is_empty() {
+        return Err(format!("{program} returned empty output").into());
+    }
+    Ok(text)
+}
+
+fn collect_inventory() -> Result<String, Box<dyn Error>> {
+    if !cfg!(target_os = "macos") {
+        return Err("USB snapshots require macOS".into());
+    }
+    let supported = command_text("/usr/sbin/system_profiler", &["-listDataTypes"])?;
+    let kind = select_usb_type(&supported)?;
+    let inventory = command_text("/usr/sbin/system_profiler", &[kind, "-detailLevel", "full"])?;
+    let model = command_text("/usr/sbin/sysctl", &["-n", "hw.model"])?;
+    let os = command_text("/usr/bin/sw_vers", &["-productVersion"])?;
+    Ok(format!(
+        "SwitchBridge USB snapshot v1\nMac model: {}\nmacOS: {}\nProfiler data type: {kind}\nVideo capture: UNVERIFIED\n\n{}",
+        model.trim(),
+        os.trim(),
+        inventory
+    ))
+}
+
+fn redact_inventory(inventory: &str) -> Result<String, Box<dyn Error>> {
+    let mut private_values = Vec::new();
+    let mut private_indent = None;
+    for line in inventory.lines().filter(|line| !line.trim().is_empty()) {
+        let indent = line.len() - line.trim_start().len();
+        if let Some(previous_indent) = private_indent
+            && (indent > previous_indent || !line.contains(':'))
+        {
+            return Err("USB inventory contains a private field continuation".into());
+        }
+        private_indent = None;
+        if let Some((key, value)) = line.split_once(':') {
+            if sensitive_key(key) {
+                let value = value.trim();
+                if value.is_empty() {
+                    return Err("USB inventory contains an empty or multiline private field".into());
+                }
+                private_values.push(value);
+                private_indent = Some(indent);
+            }
+        } else if sensitive_key(line) {
+            return Err("USB inventory contains a malformed private field".into());
+        }
+    }
+    private_values.sort_by_key(|value| std::cmp::Reverse(value.len()));
+    private_values.dedup();
+    Ok(replace_private_values(inventory, &private_values))
+}
+
+fn replace_private_values(inventory: &str, private_values: &[&str]) -> String {
+    let mut remaining = inventory;
+    let mut redacted = String::new();
+    while !remaining.is_empty() {
+        if let Some(value) = private_values
+            .iter()
+            .find(|value| remaining.starts_with(**value))
+        {
+            redacted.push_str("[REDACTED]");
+            remaining = &remaining[value.len()..];
+        } else {
+            let character = remaining
+                .chars()
+                .next()
+                .expect("remaining text is nonempty");
+            redacted.push(character);
+            remaining = &remaining[character.len_utf8()..];
+        }
+    }
+    redacted
+}
+
+fn sensitive_key(key: &str) -> bool {
+    let key = key.to_ascii_lowercase();
+    key.contains("serial") || key.contains("uuid") || key.contains("udid")
+}
+
+fn inventory_diff(before: &str, after: &str) -> Result<String, Box<dyn Error>> {
+    let before = redact_inventory(before)?;
+    let after = redact_inventory(after)?;
+    if before == after {
+        return Ok("No USB inventory changes.\n".into());
+    }
+    let old: Vec<&str> = before.lines().collect();
+    let new: Vec<&str> = after.lines().collect();
+    let prefix = old.iter().zip(&new).take_while(|(a, b)| a == b).count();
+    let suffix = old[prefix..]
+        .iter()
+        .rev()
+        .zip(new[prefix..].iter().rev())
+        .take_while(|(a, b)| a == b)
+        .count();
+    let start = prefix.saturating_sub(3);
+    let old_end = (old.len() - suffix + 3).min(old.len());
+    let new_end = (new.len() - suffix + 3).min(new.len());
+    let mut output = format!(
+        "--- before\n+++ after\n@@ -{},{} +{},{} @@\n",
+        start + 1,
+        old_end - start,
+        start + 1,
+        new_end - start
+    );
+    for line in &old[start..prefix] {
+        output.push_str(&format!(" {line}\n"));
+    }
+    for line in &old[prefix..old.len() - suffix] {
+        output.push_str(&format!("-{line}\n"));
+    }
+    for line in &new[prefix..new.len() - suffix] {
+        output.push_str(&format!("+{line}\n"));
+    }
+    for line in &old[old.len() - suffix..old_end] {
+        output.push_str(&format!(" {line}\n"));
+    }
+    Ok(output)
+}
+
+fn select_usb_type(supported: &str) -> Result<&'static str, Box<dyn Error>> {
+    ["SPUSBHostDataType", "SPUSBDataType"]
+        .into_iter()
+        .find(|kind| supported.lines().any(|line| line.trim() == *kind))
+        .ok_or_else(|| "USB profiler unavailable".into())
+}
+
+fn read_inventory(path: &Path) -> Result<String, Box<dyn Error>> {
+    let mut bytes = Vec::new();
+    File::open(path)?
+        .take(MAX_INVENTORY_BYTES + 1)
+        .read_to_end(&mut bytes)?;
+    if bytes.is_empty() || bytes.len() as u64 > MAX_INVENTORY_BYTES {
+        return Err("USB inventory must contain 1 byte to 16 MiB".into());
+    }
+    Ok(String::from_utf8(bytes)?)
+}
+
+fn write_inventory(path: &Path, inventory: &str) -> Result<(), Box<dyn Error>> {
+    if let Some(parent) = path.parent().filter(|path| !path.as_os_str().is_empty()) {
+        fs::create_dir_all(parent)?;
+    }
+    let redacted = redact_inventory(inventory)?;
+    let mut file = OpenOptions::new().write(true).create_new(true).open(path)?;
+    file.write_all(redacted.as_bytes())?;
+    file.sync_all()?;
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn redacts_serial_values_everywhere_while_preserving_device_identifiers() {
+        let raw = "USB:\n    Switch ABC123:\n      Product ID: 0x201d\n      Vendor ID: 0x057e\n      Serial Number: ABC123\n      Device UUID: DEAD-BEEF\n      Related: DEAD-BEEF\n";
+        let clean = redact_inventory(raw).unwrap();
+        assert!(!clean.contains("ABC123"));
+        assert!(!clean.contains("DEAD-BEEF"));
+        assert!(clean.contains("Vendor ID: 0x057e"));
+        assert!(clean.contains("Product ID: 0x201d"));
+        assert!(clean.contains("Serial Number: [REDACTED]"));
+    }
+
+    #[test]
+    fn retains_inventory_without_private_identifiers() {
+        assert_eq!(
+            redact_inventory("USB:\n  Vendor ID: 0x057e\n").unwrap(),
+            "USB:\n  Vendor ID: 0x057e\n"
+        );
+    }
+
+    #[test]
+    fn diff_preserves_changed_device_context_and_redacts_both_inputs() {
+        let before = "USB:\n  Mouse:\n    Product ID: 0x0001\n";
+        let after = "USB:\n  Switch:\n    Product ID: 0x201d\n    Serial Number: SECRET42\n";
+        let diff = inventory_diff(before, after).unwrap();
+        assert!(diff.contains("-  Mouse:"));
+        assert!(diff.contains("+  Switch:"));
+        assert!(diff.contains("+    Product ID: 0x201d"));
+        assert!(!diff.contains("SECRET42"));
+        assert!(diff.contains("@@ -1,3 +1,4 @@"));
+    }
+
+    #[test]
+    fn identical_inventory_reports_no_changes() {
+        assert_eq!(
+            inventory_diff("USB:\n", "USB:\n").unwrap(),
+            "No USB inventory changes.\n"
+        );
+    }
+
+    #[test]
+    fn detects_current_and_legacy_usb_profiler_types() {
+        assert_eq!(
+            select_usb_type("SPUSBDataType\nSPUSBHostDataType\n").unwrap(),
+            "SPUSBHostDataType"
+        );
+        assert_eq!(select_usb_type("SPUSBDataType\n").unwrap(), "SPUSBDataType");
+        assert!(select_usb_type("SPHardwareDataType\n").is_err());
+    }
+    fn temp_dir() -> std::path::PathBuf {
+        let dir = std::env::temp_dir().join(format!(
+            "switchbridge-usb-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        std::fs::create_dir(&dir).unwrap();
+        dir
+    }
+
+    #[test]
+    fn rejects_missing_and_extra_command_arguments() {
+        for args in [
+            vec![],
+            vec!["usb-snapshot".into()],
+            vec!["usb-diff".into(), "one".into()],
+            vec!["unknown".into()],
+        ] {
+            assert!(run(&args).is_err());
+        }
+    }
+
+    #[test]
+    fn writes_redacted_inventory_and_refuses_to_replace_existing_evidence() {
+        let dir = temp_dir();
+        let path = dir.join("nested/before.txt");
+        write_inventory(&path, "USB:\n  Serial Number: SECRET\n").unwrap();
+        assert_eq!(
+            std::fs::read_to_string(&path).unwrap(),
+            "USB:\n  Serial Number: [REDACTED]\n"
+        );
+        assert!(write_inventory(&path, "replacement").is_err());
+        assert!(std::fs::read_to_string(&path).unwrap().contains("USB:"));
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn rejects_empty_invalid_utf8_and_oversized_inventory_inputs() {
+        let dir = temp_dir();
+        let path = dir.join("input");
+        for bytes in [Vec::new(), vec![255], vec![b'x'; 16 * 1024 * 1024 + 1]] {
+            std::fs::write(&path, bytes).unwrap();
+            assert!(read_inventory(&path).is_err());
+        }
+        std::fs::write(&path, "USB:\n  Vendor ID: 0x057e\n").unwrap();
+        assert!(read_inventory(&path).unwrap().contains("0x057e"));
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+    #[test]
+    fn redacts_longest_private_values_first() {
+        let clean = redact_inventory("Serial Number: AB\nDevice UUID: ABCDEF\n").unwrap();
+        assert_eq!(
+            clean,
+            "Serial Number: [REDACTED]\nDevice UUID: [REDACTED]\n"
+        );
+    }
+
+    #[test]
+    fn fails_closed_for_malformed_sensitive_fields() {
+        for raw in [
+            "Serial Number SECRET42\n",
+            "Serial Number:\n    SECRET42\n",
+            "Device UUID SECRET42\n",
+        ] {
+            assert!(redact_inventory(raw).is_err());
+            assert!(inventory_diff("USB:\n", raw).is_err());
+        }
+    }
+    #[test]
+    fn rejects_sensitive_continuations_even_after_nonempty_first_line() {
+        for raw in [
+            "Serial Number: FIRST\n    SECOND\n",
+            "Serial Number: FIRST\n    SECOND: MORE\n",
+            "Serial Number: FIRST\n\n    SECOND\n",
+        ] {
+            assert!(redact_inventory(raw).is_err());
+        }
+    }
+
+    #[test]
+    fn short_private_values_do_not_modify_inserted_redaction_markers() {
+        assert_eq!(
+            redact_inventory("Serial Number: A\nDevice UUID: ABCDEF\n").unwrap(),
+            "Serial Number: [REDACTED]\nDevice UUID: [REDACTED]\n"
+        );
+    }
+}

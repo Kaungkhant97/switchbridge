@@ -1,0 +1,53 @@
+   Compiling switchbridge v0.1.0 (/Users/kaungkhantthu/Desktop/playground/rustSwitch/.worktrees/resume-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.39s
+     Running tests/cli.rs (target/debug/deps/cli-f1186d0580e0e297)
+
+running 2 tests
+test help_describes_synthetic_transport_and_chunk_timing ... ok
+test cli_rejects_invalid_commands_and_non_loopback_endpoints ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.43s
+
+     Running tests/network.rs (target/debug/deps/network-13e2ecfaeb4b09c2)
+
+running 2 tests
+test malformed_tcp_stream_fails_and_removes_partial_output ... ok
+test cli_tcp_round_trip_preserves_h264_and_existing_output_is_protected ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/usb_cli.rs (target/debug/deps/usb_cli-f2f5c5f0e85681eb)
+
+running 3 tests
+test help_exposes_usb_commands_alongside_transport ... FAILED
+test usb_snapshot_cli_reaches_usb_argument_validation ... FAILED
+test usb_diff_cli_reads_paths_and_redacts_private_identifiers ... FAILED
+
+failures:
+
+---- help_exposes_usb_commands_alongside_transport stdout ----
+
+thread 'help_exposes_usb_commands_alongside_transport' (3513081) panicked at tests/usb_cli.rs:42:9:
+missing usb-snapshot
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- usb_snapshot_cli_reaches_usb_argument_validation stdout ----
+
+thread 'usb_snapshot_cli_reaches_usb_argument_validation' (3513083) panicked at tests/usb_cli.rs:32:5:
+assertion failed: String::from_utf8_lossy(&output.stderr).contains("usage: switchbridge usb-snapshot PATH")
+
+---- usb_diff_cli_reads_paths_and_redacts_private_identifiers stdout ----
+
+thread 'usb_diff_cli_reads_paths_and_redacts_private_identifiers' (3513082) panicked at tests/usb_cli.rs:16:5:
+switchbridge: expected numeric loopback IP:port
+
+
+
+failures:
+    help_exposes_usb_commands_alongside_transport
+    usb_diff_cli_reads_paths_and_redacts_private_identifiers
+    usb_snapshot_cli_reaches_usb_argument_validation
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `--test usb_cli`
