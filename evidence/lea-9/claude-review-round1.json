@@ -1,0 +1,69 @@
+{
+  "reviewer": "Claude CLI",
+  "model": "claude-opus-5-5",
+  "session_id": "f446cce5-ec84-4171-901d-171cf50cef89",
+  "exit_code": 0,
+  "report_sha256": "ba2ee274c50c48e787aced1b2b38a6cf97ad4f7e3ed0eddf5753687748f0edce",
+  "review": {
+    "source_verification_limitation": "I read only the supplied report and the source facts stated in the review prompt. I did not fetch, open, or verify any cited URL, and I used no tools. Statements about what Nintendo's pages say are checked only against the facts in the prompt: the UK USB transfer page requires MTP and Copy to PC for selected saved media; the GameChat FAQ covers network-dependent screen sharing and camera input into the console; the technical specs and TV setup pages document dock HDMI output. Any report claim beyond those facts is unverified by me. I also did not execute the Python harness appended after the report.",
+    "findings": [
+      {
+        "severity": "medium",
+        "location": "Sources and review boundary (S2, S3); 'What the primary sources establish' table (GameChat and USB camera rows)",
+        "claim": "The cited sources do not match the independently checked set. S2 is 'Play Nintendo — GameChat 101', not the GameChat FAQ. S3 is a Nintendo SG 'About USB Camera' product page, while the checked fact about camera-into-console comes from the GameChat FAQ. The checked technical specs page is not cited at all. The report's conclusions on these rows are consistent with the checked facts, but the citations point to pages the separate researcher did not verify.",
+        "suggested_fix": "Cite the GameChat FAQ for the network-dependent screen sharing and camera-input facts, and add the technical specs page next to S4 for dock HDMI output. Alternatively, have the researcher verify S2 and S3 as cited and record that verification."
+      },
+      {
+        "severity": "low",
+        "location": "Primary sources table, USB album transfer row: 'Dock USB ports do not support that transfer. [S1]'",
+        "claim": "This sub-claim is not among the supplied verified source facts, so I cannot confirm it. It does not affect the decision, but it is presented as sourced fact.",
+        "suggested_fix": "Have the researcher confirm the claim against S1 with a quoted excerpt, or remove it or mark it as unverified."
+      },
+      {
+        "severity": "low",
+        "location": "Falsifiable next experiment, step 4 (PASS gate) and step 3",
+        "claim": "'Repeatable' and 'attributed' are not defined operationally. The gate is directionally correct and matches the ticket, which allows PASS only for attributable real live console frames. However, it does not say how many independent sessions are required, what correlation between visible gameplay changes and decoded frames counts as attribution, or what control result would falsify it.",
+        "suggested_fix": "Set minimum criteria. Example: at least 3 independent connect sessions; decoded frames show the scripted visible changes within the logged time windows; disconnected and idle controls produce no matching frames; raw traffic and hashes are retained for each session."
+      },
+      {
+        "severity": "low",
+        "location": "Falsifiable next experiment, step 2",
+        "claim": "Step 2 accepts that macOS read-only tooling may not expose full descriptors, but it does not say what happens next. The ticket requires descriptors from LEA-8, so this gap could leave the gate permanently open.",
+        "suggested_fix": "Name a fallback read-only descriptor-capture path, such as another host OS's standard USB enumeration or a passive bus analyzer. Alternatively, state that if descriptors cannot be fully obtained, the status remains BLOCKED with that limitation recorded."
+      },
+      {
+        "severity": "low",
+        "location": "Decision section",
+        "claim": "The decision combines 'BLOCKED / UNVERIFIED' with 'NO-GO for committing to a direct USB live-capture product now'. A skim reader could take NO-GO to mean infeasible. The next sentence clarifies that this is a project gate, not proof of impossibility, so the distinction is honest. The labels could still be cleaner.",
+        "suggested_fix": "Make the primary status 'BLOCKED (feasibility unverified)' and present NO-GO as the scoped product-commitment decision. For example: 'Product commitment: NO-GO pending LEA-8 evidence.'"
+      },
+      {
+        "severity": "low",
+        "location": "Physical evidence register, first row",
+        "claim": "The first row says 'Console experiment metadata unavailable' instead of using the BLOCKED/UNVERIFIED vocabulary the other rows use.",
+        "suggested_fix": "Change the row to 'BLOCKED: no experiment run; metadata unavailable' for consistency."
+      },
+      {
+        "severity": "low",
+        "location": "Narrow alternatives, 'Display without Mac ingestion' and 'Mac live ingestion with relaxed constraints'",
+        "claim": "A projector appears without any context from the ticket scope. The HDMI capture alternative is correctly labelled as untested and outside the constraint. It does not mention that output protection or mode compatibility could block capture, which is an open risk and should not be read as an assertion either way.",
+        "suggested_fix": "Explain briefly why the projector is relevant or drop it. Add 'output-protection/mode compatibility unverified' to the HDMI capture alternative's evidence requirements."
+      }
+    ],
+    "checks_passed": [
+      "USB camera direction is stated correctly: the camera feeds into the console, which establishes no console-to-Mac output.",
+      "MTP saved-media transfer is kept clearly separate from live capture, and the report declines to label the protocol as PTP without evidence.",
+      "GameChat is treated as a network feature, not as a generic USB video source.",
+      "The decision explicitly separates BLOCKED from proven impossibility, and negative results are limited to the tested states and firmware.",
+      "The PASS gate requires attributable real gameplay frames from console USB traffic and excludes synthetic input, saved clips, and GameChat as substitutes.",
+      "No USB identifiers are fabricated, and enumeration PASS is explicitly not treated as capture PASS.",
+      "LEA-7's synthetic round trip is correctly limited to host transport and is not treated as frame timing."
+    ],
+    "verdict": {
+      "clears_bar": true,
+      "critical_count": 0,
+      "high_count": 0,
+      "summary": "There are no critical or high findings. The report's logic is sound and it does not overclaim. The main fix is the source-citation mismatch: S2 and S3 should point to the pages the researcher actually verified. Tightening the operational PASS criteria is also recommended. This verdict covers logic and coverage only, measured against the supplied source facts. The sources themselves were not independently verified."
+    }
+  }
+}
